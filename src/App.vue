@@ -20,6 +20,8 @@ export default {
 
 <template>
   <div class="body" :class="{ 'body-dark': !ModeisActive }">
+    <img class="body-backgraundFoto-bottom" src="./assets/icons/backgraundFoto.png" alt="" />
+    <img class="body-backgraundFoto-top" src="./assets/icons/backgraundFoto.png" alt="" />
     <router-view></router-view>
     <nav class="sidebar" :class="{ close: !longBar, 'switch-active': !ModeisActive }">
       <header>
@@ -117,6 +119,25 @@ export default {
 </template>
 
 <style scoped>
+.body.body-dark {
+  width: 100%;
+  height: 100vh;
+  background-color: var(--body-color-dark);
+}
+.body-backgraundFoto-bottom {
+  width: 75%;
+  position: absolute;
+  left: 0;
+  bottom: -200px;
+}
+.body-backgraundFoto-top {
+  width: 75%;
+  position: absolute;
+  right: -180px;
+  transform: rotate(180deg);
+  top: -200px;
+}
+/* NavBar */
 .sidebar .text {
   white-space: nowrap;
   color: var(--text-color);
@@ -130,6 +151,7 @@ export default {
   align-items: center;
 }
 .sidebar {
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.514);
   position: fixed;
   top: 0;
   left: 0;
@@ -296,11 +318,6 @@ header .image-text .header-text {
   left: 24px;
 }
 
-.body.body-dark {
-  width: 100%;
-  height: 100vh;
-  background-color: var(--body-color-dark);
-}
 .switch-active {
   background: var(--body-sidebar-color-dark);
   color: var(--toggle-color-dark);

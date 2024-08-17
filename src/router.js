@@ -1,10 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomePage from './pages/HomePage.vue'
-import HistoryPage from './pages/HistoryPage.vue'
-import NotificationPage from './pages/NotificationPage.vue'
-import QuizPage from './pages/QuizPage.vue'
-import RatingPage from './pages/RatingPage.vue'
-import SettingsPage from './pages/SettingsPage.vue'
 import { pages } from './pages/index'
 
 const routes = [
