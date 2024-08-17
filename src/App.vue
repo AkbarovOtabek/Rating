@@ -1,5 +1,4 @@
 <script>
-import Icons from './components/Icons.vue'
 export default {
   data() {
     return {
@@ -21,6 +20,7 @@ export default {
 
 <template>
   <div class="body" :class="{ 'body-dark': !ModeisActive }">
+    <router-view></router-view>
     <nav class="sidebar" :class="{ close: !longBar, 'switch-active': !ModeisActive }">
       <header>
         <div class="image-text">
@@ -53,37 +53,37 @@ export default {
           </li>
           <ul class="menu-links">
             <li class="nav-links">
-              <a href="">
+              <a href="/home">
                 <i class="bx bx-home icon"></i>
                 <span class="text nav-text">Домой</span>
               </a>
             </li>
             <li class="nav-links">
-              <a href="">
+              <a href="/quiz">
                 <i class="bx bx-message-alt-detail icon"></i>
                 <span class="text nav-text">Опросник</span>
               </a>
             </li>
             <li class="nav-links">
-              <a href="">
+              <a href="/history">
                 <i class="bx bx-food-menu icon"></i>
                 <span class="text nav-text">История</span>
               </a>
             </li>
             <li class="nav-links">
-              <a href="">
+              <a href="/notification">
                 <i class="bx bx-bell icon"></i>
                 <span class="text nav-text">Уведомление</span>
               </a>
             </li>
             <li class="nav-links">
-              <a href="">
+              <a href="/rating">
                 <i class="bx bx-bar-chart-square icon"></i>
                 <span class="text nav-text">Рейтинг</span>
               </a>
             </li>
             <li class="nav-links">
-              <a href="">
+              <a href="/settings">
                 <i class="bx bx-cog icon"></i>
                 <span class="text nav-text">Настройки</span>
               </a>
