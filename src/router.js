@@ -7,7 +7,8 @@ const routes = [
   { path: '/settings', component: pages.SettingsPage },
   { path: '/rating', component: pages.RatingPage },
   { path: '/quiz', component: pages.QuizPage },
-  { path: '/notification', component: pages.NotificationPage }
+  { path: '/notification', component: pages.NotificationPage },
+  { path: '/login', component: pages.LoginPage }
 ]
 
 const router = createRouter({

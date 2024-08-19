@@ -12,6 +12,62 @@
           <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, perferendis?</p>
         </div>
       </div>
+      <div class="card">
+        <img class="card-img" src="" alt="" />
+        <div class="card-text">
+          <h4>Тема 1</h4>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, perferendis?</p>
+        </div>
+      </div>
+      <div class="card">
+        <img class="card-img" src="" alt="" />
+        <div class="card-text">
+          <h4>Тема 1</h4>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, perferendis?</p>
+        </div>
+      </div>
+      <div class="card">
+        <img class="card-img" src="" alt="" />
+        <div class="card-text">
+          <h4>Тема 1</h4>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, perferendis?</p>
+        </div>
+      </div>
+      <div class="card">
+        <img class="card-img" src="" alt="" />
+        <div class="card-text">
+          <h4>Тема 1</h4>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, perferendis?</p>
+        </div>
+      </div>
+      <div class="card">
+        <img class="card-img" src="" alt="" />
+        <div class="card-text">
+          <h4>Тема 1</h4>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, perferendis?</p>
+        </div>
+      </div>
+      <div class="card">
+        <img class="card-img" src="" alt="" />
+        <div class="card-text">
+          <h4>Тема 1</h4>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, perferendis?</p>
+        </div>
+      </div>
+      <div class="card">
+        <img class="card-img" src="" alt="" />
+        <div class="card-text">
+          <h4>Тема 1</h4>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, perferendis?</p>
+        </div>
+      </div>
+      <div class="card">
+        <img class="card-img" src="" alt="" />
+        <div class="card-text">
+          <h4>Тема 1</h4>
+          <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptatem, perferendis?</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -20,8 +76,11 @@
   margin-left: 300px;
 }
 .quiz .cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
   margin: 0 auto;
   max-width: 963px;
+  gap: 20px;
   min-height: 523px;
 }
 .quiz .cards .card {

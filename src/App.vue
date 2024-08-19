@@ -129,6 +129,7 @@ export default {
   position: absolute;
   left: 0;
   bottom: -200px;
+  z-index: -1;
 }
 .body-backgraundFoto-top {
   width: 75%;
@@ -136,6 +137,7 @@ export default {
   right: -180px;
   transform: rotate(180deg);
   top: -200px;
+  z-index: -1;
 }
 /* NavBar */
 .sidebar .text {

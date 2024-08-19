@@ -4,6 +4,7 @@ import NotificationPage from './NotificationPage.vue'
 import QuizPage from './QuizPage.vue'
 import RatingPage from './RatingPage.vue'
 import SettingsPage from './SettingsPage.vue'
+import LoginPage from './LoginPage.vue'
 
 export const pages = {
   HomePage,
@@ -11,5 +12,6 @@ export const pages = {
   NotificationPage,
   QuizPage,
   RatingPage,
-  SettingsPage
+  SettingsPage,
+  LoginPage
 }
