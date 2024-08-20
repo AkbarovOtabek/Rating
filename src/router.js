@@ -2,7 +2,8 @@ import { createRouter, createWebHistory } from 'vue-router'
 import { pages } from './pages/index'
 
 const routes = [
-  { path: '/home', component: pages.HomePage, alias: '/' },
+  { path: '/login', component: pages.LoginPage },
+  { path: '/home', component: pages.HomePage },
   { path: '/history', component: pages.HistoryPage },
   { path: '/settings', component: pages.SettingsPage },
   { path: '/rating', component: pages.RatingPage },

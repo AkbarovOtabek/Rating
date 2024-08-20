@@ -7,6 +7,11 @@ export default {
       ModeText: ''
     }
   },
+  computed: {
+    showNavBar() {
+      return this.$route.path !== '/login'
+    }
+  },
   methods: {
     toggleClass() {
       this.ModeisActive = !this.ModeisActive
@@ -20,10 +25,11 @@ export default {
 
 <template>
   <div class="body" :class="{ 'body-dark': !ModeisActive }">
-    <img class="body-backgraundFoto-bottom" src="./assets/icons/backgraundFoto.png" alt="" />
-    <img class="body-backgraundFoto-top" src="./assets/icons/backgraundFoto.png" alt="" />
-    <router-view></router-view>
-    <nav class="sidebar" :class="{ close: !longBar, 'switch-active': !ModeisActive }">
+    <nav
+      class="sidebar"
+      :class="{ close: !longBar, 'switch-active': !ModeisActive }"
+      v-if="showNavBar"
+    >
       <header>
         <div class="image-text">
           <span class="image">
@@ -33,26 +39,13 @@ export default {
 
           <div class="text header-text">
             <span class="name">CERT-CBU</span>
-            <span class="profession">Cyber Securaty</span>
+            <span class="profession">Cyber Securety</span>
           </div>
         </div>
         <i @click="toggleLongBar" class="bx bx-chevron-right toggle"></i>
       </header>
       <div class="menu-bar">
         <div class="menu">
-          <li class="search-box">
-            <form>
-              <button type="submit">
-                <i
-                  :style="{
-                    color: ModeisActive ? 'var(--text-color)' : 'var(--toggle-color-dark)'
-                  }"
-                  class="bx bx-search icon long-short"
-                ></i>
-              </button>
-              <input type="search" placeholder="Поиск..." />
-            </form>
-          </li>
           <ul class="menu-links">
             <li class="nav-links">
               <a href="/home">
@@ -115,6 +108,28 @@ export default {
         </div>
       </div>
     </nav>
+    <div class="none" :class="{ container: showNavBar }">
+      <div class="search-and-profile" v-if="showNavBar">
+        <div class="search-header">
+          <form>
+            <button type="submit">
+              <i
+                :style="{
+                  color: ModeisActive ? 'var(--text-color)' : 'var(--toggle-color-dark)'
+                }"
+                class="bx bx-search icon long-short"
+              ></i>
+            </button>
+            <input type="search" placeholder="Поиск..." />
+          </form>
+        </div>
+        <div class="profile-header">
+          <img src="./assets/icons/BrandForDark.png" alt="" />
+          <h4>Michael Clifford</h4>
+        </div>
+      </div>
+      <router-view></router-view>
+    </div>
   </div>
 </template>
 
@@ -123,21 +138,6 @@ export default {
   width: 100%;
   height: 100vh;
   background-color: var(--body-color-dark);
-}
-.body-backgraundFoto-bottom {
-  width: 75%;
-  position: absolute;
-  left: 0;
-  bottom: -200px;
-  z-index: -1;
-}
-.body-backgraundFoto-top {
-  width: 75%;
-  position: absolute;
-  right: -180px;
-  transform: rotate(180deg);
-  top: -200px;
-  z-index: -1;
 }
 /* NavBar */
 .sidebar .text {
@@ -158,10 +158,11 @@ export default {
   top: 0;
   left: 0;
   height: 100%;
-  padding: 10px 14px;
+  padding: 40px 14px 10px;
   width: 270px;
   transition: var(--tran-03);
   background: var(--sidebar-color);
+  z-index: 999;
 }
 .sidebar.close {
   width: 85px;
@@ -242,29 +243,53 @@ header .image-text .header-text {
 .sidebar li a:hover .text {
   color: var(--sidebar-color);
 }
-.sidebar .search-box {
-  background: var(--primary-color-light);
+
+/* top - search and profile */
+.search-and-profile {
+  display: flex;
+  justify-content: space-between;
+  width: 1440px;
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
 }
-.search-box {
+.search-header {
+  width: 84%;
+  background: var(--sidebar-color);
   border-radius: 10px;
 }
-.search-box form {
+.profile-header {
+  width: 200px;
   display: flex;
-  height: 50px;
+  align-items: center;
+  justify-content: space-between;
 }
-.search-box form button {
+.profile-header img {
+  width: 60px;
+  height: 50px;
+  height: 60px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+}
+.search-header form {
+  height: 100%;
+  display: flex;
+}
+.search-header form button {
+  width: 60px;
   background: none;
   border: none;
   cursor: pointer;
 }
-.search-box input {
+.search-header input {
   font-size: 16px;
   outline: none;
   border: none;
   border-radius: 6px;
   height: 100%;
   width: 100%;
-  background: var(--primary-color-light);
+  background: var(--sidebar-color);
 }
 .sidebar .menu-bar {
   padding: 60px 0px;

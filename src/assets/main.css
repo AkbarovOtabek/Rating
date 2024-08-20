@@ -34,11 +34,10 @@
 }
 
 body {
-  height: 100vh;
+  background-color: #fbf9f9;
   position: relative;
   font-size: 16px;
   font-family: 'Poppins', sans-serif;
-  overflow: hidden;
 }
 
 a {
@@ -51,4 +50,10 @@ ul {
 img {
   width: inherit;
   height: inherit;
+}
+
+.container {
+  position: relative;
+  margin: 0 auto;
+  width: 1440px;
 }
