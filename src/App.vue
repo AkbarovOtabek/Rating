@@ -100,7 +100,7 @@ export default {
             </div>
           </li>
           <li class="">
-            <a href="">
+            <a href="/login">
               <i class="bx bx-log-out icon"></i>
               <span class="text nav-text">Выход</span>
             </a>

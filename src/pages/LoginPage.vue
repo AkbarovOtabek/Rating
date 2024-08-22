@@ -1,3 +1,39 @@
+<script>
+export default {
+  data() {
+    return {
+      UserLog: {
+        login: 'sht0rm',
+        password: '123wqe'
+      },
+      UserInput: {
+        login: '',
+        password: ''
+      }
+    }
+  },
+  methods: {
+    InputText(login) {
+      this.UserInput.login = login
+    },
+    InputPassword(password) {
+      this.UserInput.password = password
+    },
+    matchingUserLogWithInput() {
+      if (
+        this.UserLog.login === this.UserInput.login ||
+        this.UserLog.password === this.UserInput.password
+      ) {
+        console.log('успешный ход')
+        this.$router.push('/home')
+      } else {
+        console.log('Неправильный логин или пароль')
+      }
+    }
+  }
+}
+</script>
+
 <template>
   <div class="container-login">
     <div class="login-image">
@@ -17,7 +53,7 @@
     <div class="login-text">
       <div class="login-logo">
         <img src="../assets/icons/BrandForWhite.png" alt="" />
-        <div>
+        <div class="login-logo-text">
           <h3>"CERT-CBU"</h3>
           <h3>Cyber securety</h3>
         </div>
@@ -26,12 +62,22 @@
         <h3>Войдите в свою учетную запись</h3>
         <p>с вашим зарегестрированным логином</p>
         <form action="">
-          <label for="login">Логин</label>
-          <input type="text" name="login" />
-          <label for="password">Пароль</label>
-          <input type="password" name="password" />
+          <label for="login">Логин *</label>
+          <input
+            @input="InputText($event.target.value)"
+            type="text"
+            name="login"
+            placeholder="Введете вашу учетную запись"
+          />
+          <label for="password">Пароль *</label>
+          <input
+            @input="InputPassword($event.target.value)"
+            type="password"
+            name="password"
+            placeholder="Введете ваш пароль"
+          />
 
-          <button>Войти</button>
+          <button type="submit" @click.prevent="matchingUserLogWithInput">Войти</button>
         </form>
       </div>
     </div>
@@ -40,6 +86,7 @@
 
 <style scoped>
 .container-login {
+  overflow: hidden;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -48,6 +95,7 @@
 }
 .login-image,
 .login-text {
+  position: relative;
   width: 50%;
   height: inherit;
 }
@@ -113,11 +161,71 @@
 }
 
 .login-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .login-logo {
-  margin: 40px 0px 0px 40px;
+  top: 3%;
+  left: 6%;
+  position: absolute;
   display: flex;
   align-items: center;
   justify-content: start;
+}
+.login-logo img {
+  margin-right: 14px;
+}
+.login-logo .login-logo-text {
+  font-size: 18px;
+}
+.login-input-section h3 {
+  color: var(--primary-color);
+  font-weight: 900;
+  font-size: 25px;
+}
+.login-input-section p {
+  color: var(--primary-color);
+  margin-bottom: 26px;
+  font-size: 18px;
+}
+.login-input-section form {
+  display: flex;
+  flex-direction: column;
+}
+.login-input-section form label {
+  color: var(--text-color);
+  font-size: 20px;
+  margin-bottom: 12px;
+}
+.login-input-section form input,
+.login-input-section form button {
+  outline: none;
+  border: 1px solid transparent;
+  height: 64px;
+  width: 426px;
+  font-size: 20px;
+  border-radius: 10px;
+}
+.login-input-section form input {
+  padding-left: 20px;
+  margin-bottom: 21px;
+  box-shadow: 0px 2px 10px #00000054;
+}
+.login-input-section form input::placeholder {
+  color: var(--primary-color);
+}
+.login-input-section form button {
+  margin-top: 40px;
+  cursor: pointer;
+  color: var(--sidebar-color);
+  background-color: var(--primary-color);
+  transition: var(--tran-03);
+}
+.login-input-section form button:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+  background-color: var(--sidebar-color);
 }
 </style>
