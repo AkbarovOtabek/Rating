@@ -9,7 +9,9 @@ export default {
       UserInput: {
         login: '',
         password: ''
-      }
+      },
+      isInvalid: false,
+      showPassword: false
     }
   },
   methods: {
@@ -21,13 +23,28 @@ export default {
     },
     matchingUserLogWithInput() {
       if (
-        this.UserLog.login === this.UserInput.login ||
-        this.UserLog.password === this.UserInput.password
+        this.UserLog.login !== this.UserInput.login ||
+        this.UserLog.password !== this.UserInput.password
       ) {
-        console.log('успешный ход')
-        this.$router.push('/home')
-      } else {
+        this.isInvalid = true
+
+        setTimeout(() => {
+          this.isInvalid = false
+        }, 300)
+
         console.log('Неправильный логин или пароль')
+      }
+      if (
+        this.UserLog.login == this.UserInput.login &&
+        this.UserLog.password == this.UserInput.password
+      ) {
+        this.isInvalid = false
+        this.$router.push('/home')
+      }
+    },
+    changingTheStatusOfPassword() {
+      this.showPassword = !this.showPassword
+      if (this.showPassword) {
       }
     }
   }
@@ -65,18 +82,27 @@ export default {
           <label for="login">Логин *</label>
           <input
             @input="InputText($event.target.value)"
+            :class="{ invalid: isInvalid }"
             type="text"
             name="login"
             placeholder="Введете вашу учетную запись"
+            required
           />
           <label for="password">Пароль *</label>
-          <input
-            @input="InputPassword($event.target.value)"
-            type="password"
-            name="password"
-            placeholder="Введете ваш пароль"
-          />
-
+          <div class="password-input">
+            <input
+              @input="InputPassword($event.target.value)"
+              :class="{ invalid: isInvalid }"
+              :type="!showPassword ? 'password' : 'text'"
+              name="password"
+              placeholder="Введете ваш пароль"
+              required
+            />
+            <div @click="changingTheStatusOfPassword" class="input-show-password">
+              <span v-if="!showPassword"> <img src="../assets/icons/close-eye.png" alt="" /></span>
+              <span v-else> <img src="../assets/icons/open-eye.png" alt="" /></span>
+            </div>
+          </div>
           <button type="submit" @click.prevent="matchingUserLogWithInput">Войти</button>
         </form>
       </div>
@@ -227,5 +253,46 @@ export default {
   border-color: var(--primary-color);
   color: var(--primary-color);
   background-color: var(--sidebar-color);
+}
+/* Validaiton*/
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-5px);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+  75% {
+    transform: translateX(-5px);
+  }
+}
+.login-input-section form input.invalid {
+  border-color: red;
+  box-shadow: 0 0 5px red;
+}
+.login-input-section form input.invalid {
+  animation: shake 0.3s;
+}
+.password-input {
+  position: relative;
+}
+.password-input span {
+  background: white;
+  position: absolute;
+  right: 5%;
+  top: 42%;
+  transform: translateY(-50%);
+}
+.password-input span img {
+  width: 30px;
+  height: 30px;
+}
+.input-show-password {
+  cursor: pointer;
 }
 </style>

@@ -124,7 +124,7 @@ export default {
           </form>
         </div>
         <div class="profile-header">
-          <img src="./assets/icons/BrandForDark.png" alt="" />
+          <img src="./assets/icons/UserIcon.png" alt="" />
           <h4>Michael Clifford</h4>
         </div>
       </div>
