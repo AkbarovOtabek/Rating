@@ -34,7 +34,7 @@ export default {
   border-radius: 15px;
   background-color: var(--sidebar-color);
   width: 100%;
-  margin-top: 100px;
+  margin-top: 40px;
 }
 .quiz h2 {
   padding: 20px 0px 0px 20px;
