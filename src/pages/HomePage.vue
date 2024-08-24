@@ -5,7 +5,45 @@ export default {
       quantityQuestions: 80,
       answered: 75,
       remainQuestions: 5,
-      rating: 10
+      rating: 10,
+      lastPassedQuestions: [
+        { dateOfstart: 'January 1, 2021', dateOfFinish: 'January 15, 2021', quarters: 1, id: 1 },
+        { dateOfstart: 'March 1, 2021', dateOfFinish: 'March 15, 2021', quarters: 2, id: 2 },
+        { dateOfstart: 'Juny 1, 2021', dateOfFinish: 'Juny 15, 2021', quarters: 3, id: 3 },
+        {
+          dateOfstart: 'September 1, 2021',
+          dateOfFinish: 'September 15, 2021',
+          quarters: 4,
+          id: 4
+        },
+        { dateOfstart: 'January 1, 2022', dateOfFinish: 'January 15, 2022', quarters: 1, id: 5 },
+        { dateOfstart: 'March 1, 2022', dateOfFinish: 'March 15, 2022', quarters: 2, id: 6 },
+        { dateOfstart: 'Juny 1, 2022', dateOfFinish: 'Juny 15, 2022', quarters: 3, id: 7 },
+        {
+          dateOfstart: 'September 1, 2022',
+          dateOfFinish: 'September 15, 2022',
+          quarters: 4,
+          id: 8
+        },
+        { dateOfstart: 'January 1, 2023', dateOfFinish: 'January 15, 2023', quarters: 1, id: 9 },
+        { dateOfstart: 'March 1, 2023', dateOfFinish: 'March 15, 2023', quarters: 2, id: 10 },
+        { dateOfstart: 'Juny 1, 2023', dateOfFinish: 'Juny 15, 2023', quarters: 3, id: 11 },
+        {
+          dateOfstart: 'September 1, 2023',
+          dateOfFinish: 'September 15, 2023',
+          quarters: 4,
+          id: 12
+        },
+        { dateOfstart: 'January 1, 2024', dateOfFinish: 'January 15, 2024', quarters: 1, id: 13 },
+        { dateOfstart: 'March 1, 2024', dateOfFinish: 'March 15, 2024', quarters: 2, id: 14 },
+        { dateOfstart: 'Juny 1, 2024', dateOfFinish: 'Juny 15, 2024', quarters: 3, id: 15 },
+        {
+          dateOfstart: 'September 1, 2024',
+          dateOfFinish: 'September 15, 2024',
+          quarters: 4,
+          id: 16
+        }
+      ]
     }
   }
 }
@@ -57,11 +95,65 @@ export default {
       </div>
       <div class="statistics-graphic-right"></div>
     </div>
-    <div class="history-to-change"></div>
+    <div class="history-to-change">
+      <div class="last-passed-questions">
+        <div class="passed-questions-top-section">
+          <h3>Последне отвеченные ответы на вопросы</h3>
+          <div class="passed-questions-top-filter">
+            <div>
+              <form action="" class="form-for-filter">
+                <div>
+                  <select class="form-select">
+                    <option value="default">по четверти</option>
+                    <option value="quarter-1">1 четверть</option>
+                    <option value="quarter-1">2 четверть</option>
+                    <option value="quarter-1">3 четверть</option>
+                    <option value="quarter-1">4 четверть</option>
+                  </select>
+                </div>
+                <div class="form-input-for-date">
+                  <label for="date">По дате</label>
+                  <input type="text" name="date" placeholder="January 1, 2022" />
+                </div>
+                <div class="form-input-for-id">
+                  <label for="date">По ID</label>
+                  <input type="number" name="date" placeholder="0" />
+                </div>
+                <button type="submit" class="find-by-filter">Найти</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <table>
+          <tr>
+            <th>№</th>
+            <th>Номер ID</th>
+            <th>Начало добавления</th>
+            <th>Конец добавления</th>
+            <th>Четверть</th>
+            <th>Действие</th>
+          </tr>
+          <tr v-for="(element, number) in lastPassedQuestions" key="number">
+            <td>{{ number + 1 }}</td>
+            <td>{{ element.id }}</td>
+            <td>{{ element.dateOfstart }}</td>
+            <td>{{ element.dateOfFinish }}</td>
+            <td>{{ element.quarters }}</td>
+            <td><button class="check-last-question">Просмотреть</button></td>
+          </tr>
+        </table>
+      </div>
+    </div>
   </div>
 </template>
 <style scoped>
+.home-content {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
 .statistics-bar {
+  border: 1px solid #e6edff;
   position: relative;
   margin-top: 40px;
   border-radius: 12px;
@@ -131,5 +223,133 @@ export default {
   height: 44px;
   border-radius: 12px;
   box-shadow: 0px 0px 10px rgba(124, 141, 181, 0.22);
+}
+.statistics-graphic {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+.statistics-graphic-left {
+  background-color: var(--sidebar-color);
+  border-radius: 15px;
+  border: 1px solid #e6edff;
+  width: 63%;
+  height: 344px;
+}
+.statistics-graphic-right {
+  background-color: var(--sidebar-color);
+  border-radius: 15px;
+  border: 1px solid #e6edff;
+  width: 35%;
+  height: 344px;
+}
+.last-passed-questions {
+  width: 100%;
+  border: 1px solid #e6edff;
+  border-radius: 15px;
+  background-color: var(--sidebar-color);
+  padding: 20px;
+}
+.last-passed-questions table {
+  width: inherit;
+  text-align: center;
+}
+.last-passed-questions table td {
+  height: 54px;
+  border-top: 1px solid #e6edff;
+}
+.last-passed-questions table th {
+  height: 54px;
+  font-weight: 700;
+}
+.last-passed-questions table td:first-child {
+  padding-left: 25px;
+}
+.last-passed-questions table th:first-child {
+  padding-left: 25px;
+}
+table .check-last-question {
+  box-shadow: 0px 0px 10px rgba(124, 141, 181, 0.22);
+  border: 1px solid transparent;
+  background-color: var(--primary-color);
+  width: 100px;
+  height: 32px;
+  border-radius: 6px;
+  color: var(--sidebar-color);
+  cursor: pointer;
+  transition: var(--tran-02);
+}
+table .check-last-question:hover {
+  color: var(--primary-color);
+  background-color: var(--sidebar-color);
+  border: 1px solid var(--primary-color);
+}
+.passed-questions-top-section {
+  padding: 10px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.passed-questions-top-section h3 {
+  font-weight: 700;
+  font-size: 25px;
+}
+.passed-questions-top-filter {
+  margin-right: 20px;
+  padding: 10px 15px;
+  height: 50px;
+  border-radius: 6px;
+  box-shadow: 0px 0px 10px rgba(124, 141, 181, 0.22);
+  width: 50%;
+}
+.passed-questions-top-filter .form-for-filter {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+.passed-questions-top-filter .form-for-filter .form-input-for-date input {
+  outline: none;
+  border-radius: 3px;
+  border: 1px solid grey;
+  width: 140px;
+  height: 30px;
+  margin-left: 10px;
+  padding: 1px 10px;
+}
+.passed-questions-top-filter .form-for-filter .form-input-for-id input {
+  outline: none;
+  border-radius: 3px;
+  border: 1px solid grey;
+  width: 50px;
+  height: 30px;
+  margin-left: 10px;
+  padding: 1px 10px;
+}
+.form-select {
+  outline: none;
+  display: inline-block;
+  border: 1px solid grey;
+  border-radius: 3px;
+  width: 140px;
+  height: 30px;
+  margin-left: 10px;
+  padding: 1px 10px;
+}
+.find-by-filter {
+  box-shadow: 0px 0px 10px rgba(124, 141, 181, 0.22);
+  border: 1px solid transparent;
+  background-color: var(--primary-color);
+  width: 100px;
+  height: 32px;
+  border-radius: 6px;
+  color: var(--sidebar-color);
+  cursor: pointer;
+  transition: var(--tran-02);
+}
+.find-by-filter:hover {
+  color: var(--primary-color);
+  background-color: var(--sidebar-color);
+  border: 1px solid var(--primary-color);
 }
 </style>
