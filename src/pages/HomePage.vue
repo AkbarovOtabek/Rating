@@ -3,9 +3,11 @@ export default {
   data() {
     return {
       quantityQuestions: 80,
-      answered: 75,
+      answered: 74,
       remainQuestions: 5,
       rating: 10,
+      progress: 0,
+      visibleQuestions: 5,
       lastPassedQuestions: [
         { dateOfstart: 'January 1, 2021', dateOfFinish: 'January 15, 2021', quarters: 1, id: 1 },
         { dateOfstart: 'March 1, 2021', dateOfFinish: 'March 15, 2021', quarters: 2, id: 2 },
@@ -44,6 +46,22 @@ export default {
           id: 16
         }
       ]
+    }
+  },
+  computed: {
+    progressPercentage() {
+      return ((100 * this.answered) / this.quantityQuestions).toFixed(1)
+    },
+    displayedQuestions() {
+      return this.lastPassedQuestions.slice(0, this.visibleQuestions)
+    }
+  },
+  methods: {
+    findingProgress() {
+      return 100 - this.progressPercentage
+    },
+    loadMore() {
+      this.visibleQuestions += 5
     }
   }
 }
@@ -93,7 +111,17 @@ export default {
           <li></li>
         </ul>
       </div>
-      <div class="statistics-graphic-right"></div>
+      <div class="statistics-graphic-right">
+        <div
+          class="progress-bar"
+          :style="{
+            background: `conic-gradient(var(--primary-color) ${progressPercentage * 3.6}deg, #e6e5e5 0deg)`
+          }"
+        >
+          <span class="progress-value">{{ progressPercentage }}%</span>
+        </div>
+        <span class="progress-text">Статус выполненых задач</span>
+      </div>
     </div>
     <div class="history-to-change">
       <div class="last-passed-questions">
@@ -133,7 +161,7 @@ export default {
             <th>Четверть</th>
             <th>Действие</th>
           </tr>
-          <tr v-for="(element, number) in lastPassedQuestions" key="number">
+          <tr v-for="(element, number) in displayedQuestions" :key="element.id">
             <td>{{ number + 1 }}</td>
             <td>{{ element.id }}</td>
             <td>{{ element.dateOfstart }}</td>
@@ -142,6 +170,13 @@ export default {
             <td><button class="check-last-question">Просмотреть</button></td>
           </tr>
         </table>
+        <button
+          class="download-more"
+          v-if="visibleQuestions < lastPassedQuestions.length"
+          @click="loadMore"
+        >
+          Загрузить больше
+        </button>
       </div>
     </div>
   </div>
@@ -233,16 +268,54 @@ export default {
   background-color: var(--sidebar-color);
   border-radius: 15px;
   border: 1px solid #e6edff;
-  width: 63%;
+  width: 73%;
   height: 344px;
 }
 .statistics-graphic-right {
   background-color: var(--sidebar-color);
   border-radius: 15px;
   border: 1px solid #e6edff;
-  width: 35%;
+  width: 25%;
   height: 344px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 20px;
 }
+.statistics-graphic-right .progress-bar {
+  position: relative;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 225px;
+  width: 225px;
+  background: conic-gradient(var(--primary-color) 3.6deg, #e6e5e5 0deg);
+}
+.statistics-graphic-right .progress-bar::before {
+  content: '';
+  position: absolute;
+  height: 200px;
+  width: 200px;
+  border-radius: 50%;
+  background: #ffffff;
+}
+.progress-value {
+  position: relative;
+  z-index: 1;
+  font-size: 50px;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+.progress-text {
+  font-size: 22px;
+  font-weight: 600;
+  width: 220px;
+  text-align: center;
+}
+
+/* Последние выполненые задачи */
 .last-passed-questions {
   width: 100%;
   border: 1px solid #e6edff;
@@ -347,9 +420,26 @@ table .check-last-question:hover {
   cursor: pointer;
   transition: var(--tran-02);
 }
-.find-by-filter:hover {
+.find-by-filter:hover,
+.download-more:hover {
   color: var(--primary-color);
   background-color: var(--sidebar-color);
   border: 1px solid var(--primary-color);
+}
+.download-more {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 40px auto 20px;
+  box-shadow: 0px 0px 10px rgba(124, 141, 181, 0.22);
+  border: 1px solid transparent;
+  background-color: var(--primary-color);
+  width: 200px;
+  height: 40px;
+  font-size: 18px;
+  border-radius: 6px;
+  color: var(--sidebar-color);
+  cursor: pointer;
+  transition: var(--tran-02);
 }
 </style>
