@@ -289,8 +289,9 @@ export default {
   transform: translateY(-50%);
 }
 .password-input span img {
-  width: 30px;
-  height: 30px;
+  margin-right: 10px;
+  width: 28px;
+  height: 25px;
 }
 .input-show-password {
   cursor: pointer;

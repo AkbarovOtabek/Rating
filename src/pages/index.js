@@ -5,6 +5,9 @@ import QuizPage from './QuizPage.vue'
 import RatingPage from './RatingPage.vue'
 import SettingsPage from './SettingsPage.vue'
 import LoginPage from './LoginPage.vue'
+import LastPassedQuestons from './LastPassedQuestons.vue'
+import LastQuantsHistory from './LastQuantsHistory.vue'
+import QuestionType from './QuestionType.vue'
 
 export const pages = {
   HomePage,
@@ -13,5 +16,8 @@ export const pages = {
   QuizPage,
   RatingPage,
   SettingsPage,
-  LoginPage
+  LoginPage,
+  LastPassedQuestons,
+  LastQuantsHistory,
+  QuestionType
 }

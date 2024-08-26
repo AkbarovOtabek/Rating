@@ -1,10 +1,11 @@
 <script>
+import ChartsHomePage from '@/components/ChartsHomePage.vue'
 export default {
+  components: { ChartsHomePage },
   data() {
     return {
       quantityQuestions: 80,
       answered: 74,
-      remainQuestions: 5,
       rating: 10,
       progress: 0,
       visibleQuestions: 5,
@@ -54,6 +55,9 @@ export default {
     },
     displayedQuestions() {
       return this.lastPassedQuestions.slice(0, this.visibleQuestions)
+    },
+    remainQuestions() {
+      return this.quantityQuestions - this.answered
     }
   },
   methods: {
@@ -86,7 +90,7 @@ export default {
       </div>
       <div class="profile-statistics">
         <div>
-          <h3>{{ this.remainQuestions }}</h3>
+          <h3>{{ remainQuestions }}</h3>
           <span><img src="../assets/icons/totalIconRemain.png" alt="" /></span>
         </div>
         <p>Количество оставшихся</p>
@@ -105,11 +109,7 @@ export default {
     <div class="statistics-graphic">
       <div class="statistics-graphic-left">
         <h3>История изменения положения</h3>
-        <ul>
-          <li>прош</li>
-          <li></li>
-          <li></li>
-        </ul>
+        <ChartsHomePage />
       </div>
       <div class="statistics-graphic-right">
         <div
@@ -167,7 +167,11 @@ export default {
             <td>{{ element.dateOfstart }}</td>
             <td>{{ element.dateOfFinish }}</td>
             <td>{{ element.quarters }}</td>
-            <td><button class="check-last-question">Просмотреть</button></td>
+            <td>
+              <a :href="`/home/lastPassed/${element.id}`" class="check-last-question">
+                Просмотреть
+              </a>
+            </td>
           </tr>
         </table>
         <button
@@ -190,7 +194,6 @@ export default {
 .statistics-bar {
   border: 1px solid #e6edff;
   position: relative;
-  margin-top: 40px;
   border-radius: 12px;
   background: var(--sidebar-color);
   display: flex;
@@ -269,14 +272,21 @@ export default {
   border-radius: 15px;
   border: 1px solid #e6edff;
   width: 73%;
-  height: 344px;
+  height: 500px;
+  padding: 5px 40px;
+}
+.statistics-graphic-left h3 {
+  margin: 15px;
+  font-size: 20px;
+  font-weight: 600;
+  text-align: center;
 }
 .statistics-graphic-right {
   background-color: var(--sidebar-color);
   border-radius: 15px;
   border: 1px solid #e6edff;
   width: 25%;
-  height: 344px;
+  height: 500px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -289,15 +299,15 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 225px;
-  width: 225px;
+  height: 260px;
+  width: 260px;
   background: conic-gradient(var(--primary-color) 3.6deg, #e6e5e5 0deg);
 }
 .statistics-graphic-right .progress-bar::before {
   content: '';
   position: absolute;
-  height: 200px;
-  width: 200px;
+  height: 240px;
+  width: 240px;
   border-radius: 50%;
   background: #ffffff;
 }
@@ -342,10 +352,12 @@ export default {
   padding-left: 25px;
 }
 table .check-last-question {
+  display: inline-block;
+  padding: 3px 15px;
   box-shadow: 0px 0px 10px rgba(124, 141, 181, 0.22);
   border: 1px solid transparent;
   background-color: var(--primary-color);
-  width: 100px;
+
   height: 32px;
   border-radius: 6px;
   color: var(--sidebar-color);

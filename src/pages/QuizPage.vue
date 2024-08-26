@@ -1,9 +1,5 @@
 <script>
-import Card from '@/components/Card.vue'
 export default {
-  components: {
-    Card
-  },
   data() {
     return {
       themesForQuestions: [
@@ -25,7 +21,21 @@ export default {
   <div class="quiz">
     <h2>Вопросы для проверки безопасности</h2>
     <div class="cards">
-      <Card v-for="theme in themesForQuestions" :key="theme.id" :theme="theme" />
+      <a
+        class="card"
+        :href="`/quiz/questionType/${theme.id}`"
+        v-for="theme in themesForQuestions"
+        :key="theme.id"
+      >
+        <div class="card-time">
+          <p>{{ theme.time }} min</p>
+        </div>
+        <img class="card-img" src="../assets/icons/123.png" alt="" />
+        <div class="card-text">
+          <h4>{{ theme.name }}</h4>
+          <p>{{ theme.discription }}</p>
+        </div>
+      </a>
     </div>
   </div>
 </template>
@@ -47,5 +57,39 @@ export default {
   gap: 20px;
   min-height: 523px;
   padding: 34px;
+}
+
+.card {
+  display: inline-block;
+  cursor: pointer;
+  position: relative;
+  width: 442px;
+  height: 346px;
+  border-radius: 10px;
+  border: 1px solid #7c8db5;
+  text-align: center;
+  overflow: hidden;
+  text-align: start;
+  font-size: 16px;
+}
+.card-text {
+  padding: 15px;
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  background: rgba(0, 0, 0, 0.671);
+  border-radius: 5px;
+  width: 70%;
+  color: white;
+}
+.card-time {
+  position: absolute;
+  background: #ededed;
+  color: blue;
+  padding: 8px;
+  border-radius: 12px;
+  left: 10px;
+  top: 10px;
 }
 </style>

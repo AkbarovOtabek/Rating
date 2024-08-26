@@ -40,7 +40,7 @@ export default {
   display: flex;
   justify-content: space-between;
   width: 1440px;
-  margin-top: 30px;
+  margin: 30px 0px 50px;
 }
 .search-header {
   width: 84%;
