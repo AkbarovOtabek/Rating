@@ -28,10 +28,10 @@ export default {
         </button>
       </form>
     </div>
-    <div class="profile-header">
+    <a href="/settings" class="profile-header">
       <img src="../assets/icons/UserIcon.png" alt="" />
       <h4>Michael Clifford</h4>
-    </div>
+    </a>
   </div>
 </template>
 
@@ -43,20 +43,22 @@ export default {
   margin: 30px 0px 50px;
 }
 .search-header {
-  width: 84%;
+  width: 82%;
   background: var(--sidebar-color);
   border-radius: 10px;
 }
 .profile-header {
-  width: 200px;
+  border-radius: 10px;
+  width: 230px;
+  padding: 0px 15px;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background: var(--sidebar-color);
 }
 .profile-header img {
-  width: 60px;
+  width: 50px;
   height: 50px;
-  height: 60px;
   border-radius: 50%;
   border: 1px solid transparent;
 }

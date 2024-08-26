@@ -32,8 +32,7 @@ export default {
         { page: '/quiz', pageName: 'Опросник', icon: 'message-alt-detail' },
         { page: '/history', pageName: 'История', icon: 'food-menu' },
         { page: '/notification', pageName: 'Уведомление', icon: 'bell' },
-        { page: '/rating', pageName: 'Рейтинг', icon: 'bar-chart-square' },
-        { page: '/settings', pageName: 'Настройки', icon: 'cog' }
+        { page: '/rating', pageName: 'Рейтинг', icon: 'bar-chart-square' }
       ]
     }
   }
@@ -47,7 +46,7 @@ export default {
     v-if="showNavBar"
   >
     <header>
-      <div class="image-text">
+      <a href="/home" class="image-text">
         <span class="image">
           <img v-if="ModeisActive" src="../assets/icons/BrandForWhite.png" alt="logo" />
           <img v-else src="../assets/icons/BrandForDark.png" alt="logo" />
@@ -57,7 +56,7 @@ export default {
           <span class="name">CERT-CBU</span>
           <span class="profession">Cyber Securety</span>
         </div>
-      </div>
+      </a>
       <i @click="toggleLongBar" class="bx bx-chevron-right toggle"></i>
     </header>
     <div class="menu-bar">

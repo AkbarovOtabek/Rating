@@ -3,7 +3,7 @@ export default {
   data() {
     return {
       themesForQuestions: [
-        { time: 15, name: 'тема 1', discription: 'документация на счет безопасноти ', id: 1 },
+        { time: 15, name: 'тема 1', discription: 'документация на счет безопасноти', id: 1 },
         { time: 15, name: 'тема 2', discription: 'документация на счет безопасноти ', id: 2 },
         { time: 15, name: 'тема 3', discription: 'документация на счет безопасноти ', id: 3 },
         { time: 15, name: 'тема 4', discription: 'документация на счет безопасноти ', id: 4 },
