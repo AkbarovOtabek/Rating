@@ -1,12 +1,5 @@
 <script>
-export default {
-  props: {
-    element: {
-      required: true,
-      type: Object
-    }
-  }
-}
+export default {}
 </script>
 
 <template>

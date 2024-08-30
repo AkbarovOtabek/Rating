@@ -150,7 +150,7 @@ export default {
           }
         }
       }
-      return (this.TheLatestQuestions = latestItem)
+      return [latestItem] // Вернуть массив с одним элементом
     }
   }
 }
@@ -158,7 +158,7 @@ export default {
 
 <template>
   <div class="quiz">
-    <div class="cards" v-for="theme in TheLatestQuestions" :key="theme.id">
+    <div class="cards" v-for="theme in filterToTheLastest()" :key="theme.date + '-' + theme.quart">
       <h2>Вопросы для проверки безопасности {{ theme.date }} за {{ theme.quart }} квартал</h2>
       <div class="quiz-card-wrapper">
         <a
@@ -178,7 +178,6 @@ export default {
         </a>
       </div>
     </div>
-    <button @click.prevent="filterToTheLastest">213</button>
   </div>
 </template>
 <style scoped>

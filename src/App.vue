@@ -6,7 +6,7 @@ export default {
   data() {
     return {
       ModeisActive: true,
-      longBar: true,
+      longBar: false,
       ModeText: ''
     }
   },
