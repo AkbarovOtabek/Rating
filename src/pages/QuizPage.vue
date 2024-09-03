@@ -150,7 +150,7 @@ export default {
           }
         }
       }
-      return [latestItem] // Вернуть массив с одним элементом
+      return [latestItem]
     }
   }
 }
