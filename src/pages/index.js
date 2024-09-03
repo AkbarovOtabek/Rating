@@ -3,7 +3,6 @@ import HistoryPage from './HistoryPage.vue'
 import NotificationPage from './NotificationPage.vue'
 import QuizPage from './QuizPage.vue'
 import RatingPage from './RatingPage.vue'
-import SettingsPage from './SettingsPage.vue'
 import LoginPage from './LoginPage.vue'
 import LastPassedQuestons from './LastPassedQuestons.vue'
 import LastQuantsHistory from './LastQuantsHistory.vue'
@@ -15,7 +14,6 @@ export const pages = {
   NotificationPage,
   QuizPage,
   RatingPage,
-  SettingsPage,
   LoginPage,
   LastPassedQuestons,
   LastQuantsHistory,

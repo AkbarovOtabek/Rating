@@ -119,7 +119,7 @@ export default {
 
 .sidebar.close .text,
 .sidebar.close .bottom-content .mode .switch {
-  opacity: 0;
+  display: none;
 }
 .sidebar header {
   position: relative;
@@ -200,6 +200,10 @@ header .image-text .header-text {
   width: 44px;
   border-radius: 25px;
   background: var(--toggle-color);
+}
+.sidebar.close .toggle-switch {
+  position: absolute;
+  right: 10px;
 }
 .switch::before {
   content: '';

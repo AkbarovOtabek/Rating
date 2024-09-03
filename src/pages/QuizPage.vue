@@ -189,19 +189,22 @@ export default {
 }
 .quiz h2 {
   padding: 20px 0px 0px 20px;
-  margin-bottom: 0px;
+  margin-bottom: 23px;
+  font-size: 24px;
+  font-weight: 600;
 }
+
 .quiz .cards {
   display: flex;
   flex-direction: column;
   padding: 34px;
 }
+
 .quiz-card-wrapper {
   width: 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
-  padding: 34px;
 }
 
 .card {

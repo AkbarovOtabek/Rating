@@ -4,11 +4,16 @@ export default {
   components: { ChartsHomePage },
   data() {
     return {
+      sortCriteria: 'default', // 'quarter', 'date', 'id'
+      sortOrder: 'asc', // 'asc' или 'desc' для возрастающей и убывающей сортировки
+      selectedQuarter: 'default',
+      selectedDate: '',
+      selectedId: '',
+      visibleQuestions: 5,
       quantityQuestions: 80,
       answered: 74,
       rating: 10,
       progress: 0,
-      visibleQuestions: 5,
       lastPassedQuestions: [
         { dateOfstart: 'January 1, 2021', dateOfFinish: 'January 15, 2021', quarters: 1, id: 1 },
         { dateOfstart: 'March 1, 2021', dateOfFinish: 'March 15, 2021', quarters: 2, id: 2 },
@@ -46,27 +51,59 @@ export default {
           quarters: 4,
           id: 16
         }
-      ]
+      ],
+      filteredQuestions: [] // Хранит результаты фильтрации
     }
   },
   computed: {
     progressPercentage() {
       return ((100 * this.answered) / this.quantityQuestions).toFixed(1)
     },
-    displayedQuestions() {
-      return this.lastPassedQuestions.slice(0, this.visibleQuestions)
-    },
     remainQuestions() {
       return this.quantityQuestions - this.answered
+    },
+    displayedQuestions() {
+      return this.filteredQuestions.slice(0, this.visibleQuestions)
     }
   },
   methods: {
-    findingProgress() {
-      return 100 - this.progressPercentage
-    },
     loadMore() {
       this.visibleQuestions += 5
+    },
+    applyFilter() {
+      // Применение фильтра при нажатии на "Найти"
+      this.visibleQuestions = 5 // Сброс видимых вопросов до начального значения
+      let questions = this.lastPassedQuestions
+
+      if (this.selectedQuarter !== 'default') {
+        questions = questions.filter(
+          (question) => question.quarters === parseInt(this.selectedQuarter)
+        )
+      }
+
+      if (this.selectedDate) {
+        const selectedDateStr = this.formatDate(new Date(this.selectedDate))
+        questions = questions.filter((question) => {
+          const questionDateStr = this.formatDate(new Date(question.dateOfstart))
+          return questionDateStr === selectedDateStr
+        })
+      }
+
+      if (this.selectedId) {
+        questions = questions.filter((question) => question.id === parseInt(this.selectedId))
+      }
+
+      this.filteredQuestions = questions // Сохранение отфильтрованных вопросов
+    },
+    formatDate(date) {
+      const year = date.getFullYear()
+      const month = (date.getMonth() + 1).toString().padStart(2, '0')
+      const day = date.getDate().toString().padStart(2, '0')
+      return `${year}-${month}-${day}`
     }
+  },
+  mounted() {
+    this.filteredQuestions = this.lastPassedQuestions // По умолчанию отображаем все вопросы
   }
 }
 </script>
@@ -129,23 +166,28 @@ export default {
           <h3>Последне отвеченные ответы на вопросы</h3>
           <div class="passed-questions-top-filter">
             <div>
-              <form action="" class="form-for-filter">
+              <form class="form-for-filter" @submit.prevent="applyFilter">
                 <div>
-                  <select class="form-select">
+                  <select class="form-select" v-model="selectedQuarter">
                     <option value="default">по четверти</option>
-                    <option value="quarter-1">1 четверть</option>
-                    <option value="quarter-1">2 четверть</option>
-                    <option value="quarter-1">3 четверть</option>
-                    <option value="quarter-1">4 четверть</option>
+                    <option value="1">1 четверть</option>
+                    <option value="2">2 четверть</option>
+                    <option value="3">3 четверть</option>
+                    <option value="4">4 четверть</option>
                   </select>
                 </div>
                 <div class="form-input-for-date">
-                  <label for="date">По дате</label>
-                  <input type="text" name="date" placeholder="January 1, 2022" />
+                  <label for="date">По дате добавления</label>
+                  <input
+                    type="text"
+                    v-model="selectedDate"
+                    name="date"
+                    placeholder="January 1, 2022"
+                  />
                 </div>
                 <div class="form-input-for-id">
-                  <label for="date">По ID</label>
-                  <input type="number" name="date" placeholder="0" />
+                  <label for="id">По ID</label>
+                  <input type="number" name="id" placeholder="0" v-model="selectedId" />
                 </div>
                 <button type="submit" class="find-by-filter">Найти</button>
               </form>
@@ -331,6 +373,7 @@ export default {
   border: 1px solid #e6edff;
   border-radius: 15px;
   background-color: var(--sidebar-color);
+  margin-bottom: 30px;
   padding: 20px;
 }
 .last-passed-questions table {
@@ -385,7 +428,7 @@ table .check-last-question:hover {
   height: 50px;
   border-radius: 6px;
   box-shadow: 0px 0px 10px rgba(124, 141, 181, 0.22);
-  width: 50%;
+  width: 58%;
 }
 .passed-questions-top-filter .form-for-filter {
   display: flex;

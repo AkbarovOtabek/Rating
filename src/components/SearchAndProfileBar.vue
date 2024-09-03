@@ -28,7 +28,7 @@ export default {
         </button>
       </form>
     </div>
-    <a href="/settings" class="profile-header">
+    <a href="/home" class="profile-header">
       <img src="../assets/icons/UserIcon.png" alt="" />
       <h4>Michael Clifford</h4>
     </a>

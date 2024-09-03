@@ -10,27 +10,26 @@ export default {
       type: Boolean
     }
   },
-  data() {
-    return {
-      finishButton: false
-    }
-  },
   methods: {
-    sendFinishButton() {
-      this.finishButton = !this.finishButton
+    sendFinishButton(confirm = false) {
+      if (!confirm) {
+        this.$emit('close') // Эмитим событие "close" для родителя
+      }
     }
   }
 }
 </script>
 
 <template>
-  <div class="alert-wrapper">
+  <div class="alert-wrapper" @click.self="$emit('close')">
+    <!-- Закрываем окно при клике вне него -->
     <div class="alert">
       <h3>?</h3>
-      <p>Are you Sure you want to submit Quiz?</p>
+      <p>Are you sure you want to submit the quiz?</p>
       <div class="alert-btn">
-        <button @click="props.changeFinishButton" type="submit" class="button_no">Нет</button>
-        <button @click="sendFinishButton" type="submit" class="button_yes">Да</button>
+        <button @click="sendFinishButton(false)" type="button" class="button_no">Нет</button>
+        <!-- Закрытие при клике на "Нет" -->
+        <button @click="sendFinishButton(true)" type="submit" class="button_yes">Да</button>
       </div>
     </div>
   </div>

@@ -11,6 +11,9 @@ export default {
   methods: {
     changeFinishButton() {
       this.startButton = !this.startButton
+    },
+    closeAlert() {
+      this.startButton = false // Закрываем окно
     }
   }
 }
@@ -57,8 +60,8 @@ export default {
     </div>
     <AlertWindow
       v-show="startButton"
+      @close="closeAlert"
       :changeFinishButton="changeFinishButton"
-      :startButton="startButton"
     />
   </div>
 </template>
