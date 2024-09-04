@@ -1,156 +1,25 @@
 <script>
+import { API } from '../questions'
 export default {
   data() {
     return {
-      TheLatestQuestions: null,
-      themesForQuestions: [
-        {
-          date: 2023,
-          period: [
-            {
-              quart: 1,
-              themes: [
-                {
-                  time: 15,
-                  name: 'тема 1',
-                  discription: 'документация на счет безопасноти',
-                  id: 1
-                },
-                {
-                  time: 15,
-                  name: 'тема 2',
-                  discription: 'документация на счет безопасноти ',
-                  id: 2
-                },
-                {
-                  time: 15,
-                  name: 'тема 3',
-                  discription: 'документация на счет безопасноти ',
-                  id: 3
-                },
-                {
-                  time: 15,
-                  name: 'тема 4',
-                  discription: 'документация на счет безопасноти ',
-                  id: 4
-                },
-                {
-                  time: 15,
-                  name: 'тема 4',
-                  discription: 'документация на счет безопасноти ',
-                  id: 5
-                },
-                {
-                  time: 15,
-                  name: 'тема 4',
-                  discription: 'документация на счет безопасноти ',
-                  id: 6
-                },
-                {
-                  time: 15,
-                  name: 'тема 4',
-                  discription: 'документация на счет безопасноти ',
-                  id: 7
-                },
-                {
-                  time: 15,
-                  name: 'тема 4',
-                  discription: 'документация на счет безопасноти ',
-                  id: 8
-                }
-              ]
-            },
-            {
-              quart: 2,
-              themes: [
-                {
-                  time: 15,
-                  name: 'тема 1',
-                  discription: 'документация на счет безопасноти',
-                  id: 1
-                },
-                {
-                  time: 15,
-                  name: 'тема 2',
-                  discription: 'документация на счет безопасноти ',
-                  id: 2
-                },
-                {
-                  time: 15,
-                  name: 'тема 3',
-                  discription: 'документация на счет безопасноти ',
-                  id: 3
-                },
-                {
-                  time: 15,
-                  name: 'тема 4',
-                  discription: 'документация на счет безопасноти ',
-                  id: 4
-                },
-                {
-                  time: 15,
-                  name: 'тема 4',
-                  discription: 'документация на счет безопасноти ',
-                  id: 5
-                },
-                {
-                  time: 15,
-                  name: 'тема 4',
-                  discription: 'документация на счет безопасноти ',
-                  id: 6
-                },
-                {
-                  time: 15,
-                  name: 'тема 4',
-                  discription: 'документация на счет безопасноти ',
-                  id: 7
-                },
-                {
-                  time: 15,
-                  name: 'тема 4',
-                  discription: 'документация на счет безопасноти ',
-                  id: 8
-                }
-              ]
-            }
-          ]
-        },
-        {
-          date: 2024,
-          quart: 1,
-          themes: [
-            { time: 15, name: 'тема 1', discription: 'документация на счет безопасноти', id: 1 },
-            { time: 15, name: 'тема 2', discription: 'документация на счет безопасноти ', id: 2 },
-            { time: 15, name: 'тема 3', discription: 'документация на счет безопасноти ', id: 3 },
-            { time: 15, name: 'тема 4', discription: 'документация на счет безопасноти ', id: 4 },
-            { time: 15, name: 'тема 4', discription: 'документация на счет безопасноти ', id: 5 },
-            { time: 15, name: 'тема 4', discription: 'документация на счет безопасноти ', id: 6 },
-            { time: 15, name: 'тема 4', discription: 'документация на счет безопасноти ', id: 7 },
-            { time: 15, name: 'тема 4', discription: 'документация на счет безопасноти ', id: 8 }
-          ]
-        }
-      ]
+      themes: API
     }
   },
   methods: {
-    filterToTheLastest() {
-      let latestItem = null
-
-      for (let i = 0; i < this.themesForQuestions.length; i++) {
-        const currentItem = this.themesForQuestions[i]
-
-        if (latestItem === null) {
-          latestItem = currentItem
-        } else {
-          if (
-            currentItem.date > latestItem.date ||
-            (currentItem.date === latestItem.date && currentItem.quart > latestItem.quart)
-          ) {
-            latestItem = currentItem
-          }
+    filterToTheLatest() {
+      let latestItem = this.themes.reduce((latest, current) => {
+        if (
+          !latest ||
+          current.year > latest.year ||
+          (current.year === latest.year && current.quants > latest.quants)
+        ) {
+          return current
         }
-      }
-      return [latestItem]
+        return latest
+      }, null)
+
+      return latestItem ? [latestItem] : []
     }
   }
 }
@@ -158,8 +27,8 @@ export default {
 
 <template>
   <div class="quiz">
-    <div class="cards" v-for="theme in filterToTheLastest()" :key="theme.date + '-' + theme.quart">
-      <h2>Вопросы для проверки безопасности {{ theme.date }} за {{ theme.quart }} квартал</h2>
+    <div class="cards" v-for="theme in filterToTheLatest()" :key="theme.year + '-' + theme.quants">
+      <h2>Вопросы для проверки безопасности {{ theme.year }} за {{ theme.quants }} квартал</h2>
       <div class="quiz-card-wrapper">
         <a
           class="card"
@@ -168,12 +37,12 @@ export default {
           :href="`/quiz/questionType/${questionTheme.id}`"
         >
           <div class="card-time">
-            <p>{{ questionTheme.time }} min</p>
+            <p>{{ questionTheme.dateline }} дней</p>
           </div>
           <img class="card-img" src="../assets/icons/123.png" alt="" />
           <div class="card-text">
             <h4>{{ questionTheme.name }}</h4>
-            <p>{{ questionTheme.discription }}</p>
+            <p>{{ questionTheme.description || 'Описание отсутствует' }}</p>
           </div>
         </a>
       </div>
