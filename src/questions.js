@@ -348,6 +348,8 @@ export const API = [
         id: 7,
         themes: [
           {
+            image:
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQapquFaXpaIm2CSRJKchEl04G4EMDig0QDvg&s',
             description: 'описание',
             id: 1,
             datecreating: '2024:09:14',
@@ -357,22 +359,58 @@ export const API = [
               {
                 count: 1,
                 question: 'Что такое кибер безопасность',
-                clientAnswer: '',
-                checkbox: '',
-                attachedFile: '',
                 alo: 6
               },
               {
                 count: 2,
                 question: 'из чего состоит кибер безопасность',
-                clientAnswer: '',
-                checkbox: '',
-                attachedFile: '',
                 alo: 2
+              },
+              {
+                count: 3,
+                question: 'из чего состоит кибер безопасность',
+                alo: 2
+              },
+              {
+                count: 4,
+                question: 'из чего состоит кибер безопасность',
+                alo: 2
+              },
+              {
+                count: 5,
+                question: 'из чего состоит кибер безопасность',
+                alo: 2
+              },
+              {
+                count: 6,
+                question: 'из чего состоит кибер безопасность',
+                alo: 3
+              },
+              {
+                count: 7,
+                question: 'из чего состоит кибер безопасность',
+                alo: 4
+              },
+              {
+                count: 8,
+                question: 'из чего состоит кибер безопасность',
+                alo: 5
+              },
+              {
+                count: 9,
+                question: 'из чего состоит кибер безопасность',
+                alo: 7
+              },
+              {
+                count: 10,
+                question: 'из чего состоит кибер безопасность',
+                alo: 10
               }
             ]
           },
           {
+            image:
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEosvitCv6VxFQ14O_l6cnagf7GYFVvuwGGA&s',
             description: 'описание2',
             id: 2,
             datecreating: '2024:09:14',
@@ -382,17 +420,11 @@ export const API = [
               {
                 count: 1,
                 question: 'Что такое кибер безопасность фвфцв',
-                clientAnswer: '',
-                checkbox: '',
-                attachedFile: '',
                 alo: 6
               },
               {
                 count: 2,
                 question: 'из чего состоит кибер безопасность фывыфв',
-                clientAnswer: '',
-                checkbox: '',
-                attachedFile: '',
                 alo: 2
               }
             ]
@@ -402,3 +434,26 @@ export const API = [
     ]
   }
 ]
+
+const findLatestYearAndQuant = (data) => {
+  // Находим самый высокий год
+  const maxYear = Math.max(...data.map((item) => item.year))
+
+  // Находим объект с самым высоким годом
+  const latestYearData = data.find((item) => item.year === maxYear)
+
+  // Находим максимальную четверть в этом году
+  const maxQuant = Math.max(...latestYearData.quants.map((quant) => quant.quant))
+
+  // Находим объект четверти, соответствующий самой высокой четверти
+  const latestQuantData = latestYearData.quants.find((quant) => quant.quant === maxQuant)
+
+  return {
+    year: maxYear,
+    quant: maxQuant,
+    themes: latestQuantData.themes // Возвращаем данные по темам этой четверти
+  }
+}
+
+export const latestYearAndQuant = findLatestYearAndQuant(API)
+console.log(latestYearAndQuant)

@@ -1,5 +1,5 @@
 <script>
-import { API } from '../questions'
+import { latestYearAndQuant } from '../questions'
 
 export default {
   data() {
@@ -22,53 +22,11 @@ export default {
         isAnswered: false
       }))
     }
-    let fields = document.querySelectorAll('.field__file')
-    Array.prototype.forEach.call(fields, function (input) {
-      let label = input.nextElementSibling,
-        labelVal = label.querySelector('.field__file-fake').innerText
-
-      input.addEventListener('change', function (e) {
-        let countFiles = ''
-        if (this.files && this.files.length >= 1) countFiles = this.files.length
-
-        if (countFiles)
-          label.querySelector('.field__file-fake').innerText = 'Выбрано файлов: ' + countFiles
-        else label.querySelector('.field__file-fake').innerText = labelVal
-      })
-    })
-    const checkboxes = document.querySelectorAll('input[type="checkbox"]')
-    checkboxes.forEach((checkbox) => {
-      checkbox.addEventListener('change', (e) => {
-        checkboxes.forEach((cb) => {
-          if (cb !== e.target) cb.checked = false
-        })
-        this.questions[e.target.dataset.index].selectedOption =
-          e.target.nextElementSibling.innerText
-      })
-    })
   },
 
   methods: {
-    updateFileLabel(index) {
-      const input = this.$refs[`fileInput${index}`][0]
-      const label = input.nextElementSibling.querySelector('.field__file-fake')
-      const countFiles = input.files.length
-
-      if (countFiles) {
-        label.innerText = 'Выбрано файлов: ' + countFiles
-      } else {
-        label.innerText = 'Файлы не выбраны'
-      }
-    },
     findThemeById(id) {
-      for (let yearData of API) {
-        for (let theme of yearData.themes) {
-          if (theme.id === Number(id)) {
-            return theme
-          }
-        }
-      }
-      return null
+      return latestYearAndQuant.themes.find((theme) => theme.id === Number(id)) || null
     },
     toggleAccordion(index) {
       this.questions[index].isOpen = !this.questions[index].isOpen
@@ -84,12 +42,19 @@ export default {
       const comments = this.questions[index].comments
 
       console.log('Вопрос:', this.questions[index].text)
-      console.log('Выбранный чекбокс:', selectedOption)
+      console.log('Выбранный ответ:', selectedOption)
       console.log('Прикрепленные файлы:', attachedFiles)
       console.log('Комментарии:', comments)
 
       this.questions[index].isAnswered = true
       this.questions[index].isOpen = false
+    },
+    updateFileLabel(index) {
+      const input = this.$refs[`fileInput${index}`][0]
+      const label = input.nextElementSibling.querySelector('.field__file-fake')
+      const countFiles = input.files.length
+
+      label.innerText = countFiles ? `Выбрано файлов: ${countFiles}` : 'Файлы не выбраны'
     }
   }
 }
@@ -106,7 +71,7 @@ export default {
       <div class="question-header" @click="toggleAccordion(index)">
         <h3>{{ index + 1 }}. {{ question.text }}</h3>
         <span class="question-header-span-wrapper">
-          <span>балл:</span>
+          <span>Баллы:</span>
           <span class="question-header-point">{{ question.points }}</span>
         </span>
       </div>
@@ -119,23 +84,21 @@ export default {
                   <input
                     type="radio"
                     :name="'question-' + index"
-                    :id="'checkbox-done-' + index"
+                    :id="'checkbox-yes-' + index"
                     @change="selectOption(index, 'Да')"
-                    :data-index="index"
                     :checked="question.selectedOption === 'Да'"
                   />
-                  <label :for="'checkbox-done-' + index">Да</label>
+                  <label :for="'checkbox-yes-' + index">Да</label>
                 </div>
                 <div class="checkbox-style">
                   <input
                     type="radio"
                     :name="'question-' + index"
-                    :id="'checkbox-not-done-' + index"
+                    :id="'checkbox-no-' + index"
                     @change="selectOption(index, 'Нет')"
-                    :data-index="index"
                     :checked="question.selectedOption === 'Нет'"
                   />
-                  <label :for="'checkbox-not-done-' + index">Нет</label>
+                  <label :for="'checkbox-no-' + index">Нет</label>
                 </div>
               </div>
               <input
@@ -146,8 +109,8 @@ export default {
                 multiple
                 @change="updateFileLabel(index)"
                 accept="image/*,application/pdf,application/msword,
-          application/vnd.openxmlformats-officedocument.wordprocessingml.document,
-          application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+              application/vnd.openxmlformats-officedocument.wordprocessingml.document,
+              application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                 :ref="'fileInput' + index"
               />
               <label class="field__file-wrapper" :for="'input__file-' + index">
@@ -157,6 +120,7 @@ export default {
                 <div class="field__file-button">Выбрать</div>
               </label>
             </div>
+
             <textarea
               name="comments"
               placeholder="Введите комментарии"

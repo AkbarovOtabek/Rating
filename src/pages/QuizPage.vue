@@ -1,45 +1,48 @@
 <script>
-import { API } from '../questions'
+import { latestYearAndQuant } from '../questions'
 export default {
   data() {
     return {
-      themes: API
+      themes: latestYearAndQuant,
+      timeForDeadline: '',
+      procentToComplate: null
     }
   },
-  methods: {
-    filterToTheLatest() {
-      let latestItem = this.themes.reduce((latest, current) => {
-        if (
-          !latest ||
-          current.year > latest.year ||
-          (current.year === latest.year && current.quants > latest.quants)
-        ) {
-          return current
-        }
-        return latest
-      }, null)
+  mounted() {
+    const currentDate = new Date()
 
-      return latestItem ? [latestItem] : []
-    }
+    const datelineStr = this.themes.themes[0].dateline
+    const formattedDateStr = datelineStr.replace(/:/g, '-')
+    const datelineDate = new Date(formattedDateStr)
+
+    const diffInMs = datelineDate - currentDate
+    const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24))
+    const diffInHours = Math.floor((diffInMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
+    const diffInMinutes = Math.floor((diffInMs % (1000 * 60 * 60)) / (1000 * 60))
+
+    this.timeForDeadline = `${diffInDays}д : ${diffInHours}ч : ${diffInMinutes}м`
   }
 }
 </script>
 
 <template>
   <div class="quiz">
-    <div class="cards" v-for="theme in filterToTheLatest()" :key="theme.year + '-' + theme.quants">
-      <h2>Вопросы для проверки безопасности {{ theme.year }} за {{ theme.quants }} квартал</h2>
+    <div class="cards">
+      <h2>Вопросы для проверки безопасности {{ themes.year }} за {{ themes.quant }} квартал</h2>
       <div class="quiz-card-wrapper">
         <a
           class="card"
-          v-for="questionTheme in theme.themes"
+          v-for="questionTheme in themes.themes"
           :key="questionTheme.id"
           :href="`/quiz/questionType/${questionTheme.id}`"
         >
           <div class="card-time">
-            <p>{{ questionTheme.dateline }} дней</p>
+            <p>{{ timeForDeadline }}</p>
           </div>
-          <img class="card-img" src="../assets/icons/123.png" alt="" />
+          <div class="procent-done-works">
+            <p>выполнен на 99%</p>
+          </div>
+          <img class="card-img" :src="questionTheme.image" alt="" />
           <div class="card-text">
             <h4>{{ questionTheme.name }}</h4>
             <p>{{ questionTheme.description || 'Описание отсутствует' }}</p>
@@ -107,6 +110,15 @@ export default {
   padding: 8px;
   border-radius: 12px;
   left: 10px;
+  top: 10px;
+}
+.procent-done-works {
+  position: absolute;
+  background: #ededed;
+  color: blue;
+  padding: 8px;
+  border-radius: 12px;
+  right: 10px;
   top: 10px;
 }
 </style>
