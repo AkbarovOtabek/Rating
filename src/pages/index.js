@@ -7,6 +7,7 @@ import LoginPage from './LoginPage.vue'
 import LastPassedQuestons from './LastPassedQuestons.vue'
 import LastQuantsHistory from './LastQuantsHistory.vue'
 import QuestionType from './QuestionType.vue'
+import ThemeQuestions from './ThemeQuestions.vue'
 
 export const pages = {
   HomePage,
@@ -17,5 +18,6 @@ export const pages = {
   LoginPage,
   LastPassedQuestons,
   LastQuantsHistory,
-  QuestionType
+  QuestionType,
+  ThemeQuestions
 }

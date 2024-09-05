@@ -357,51 +357,61 @@ export const API = [
             name: 'Кибер безопасность',
             questions: [
               {
+                answerYasNo: true,
                 count: 1,
                 question: 'Что такое кибер безопасность',
                 alo: 6
               },
               {
+                answerYasNo: true,
                 count: 2,
                 question: 'из чего состоит кибер безопасность',
                 alo: 2
               },
               {
+                answerYasNo: false,
                 count: 3,
                 question: 'из чего состоит кибер безопасность',
                 alo: 2
               },
               {
+                answerYasNo: true,
                 count: 4,
                 question: 'из чего состоит кибер безопасность',
                 alo: 2
               },
               {
+                answerYasNo: false,
                 count: 5,
                 question: 'из чего состоит кибер безопасность',
                 alo: 2
               },
               {
+                answerYasNo: false,
                 count: 6,
                 question: 'из чего состоит кибер безопасность',
                 alo: 3
               },
               {
+                answerYasNo: true,
                 count: 7,
                 question: 'из чего состоит кибер безопасность',
                 alo: 4
               },
               {
+                answerYasNo: false,
                 count: 8,
                 question: 'из чего состоит кибер безопасность',
                 alo: 5
               },
               {
+                answerYasNo: false,
                 count: 9,
                 question: 'из чего состоит кибер безопасность',
                 alo: 7
               },
               {
+                answerYasNo: false,
                 count: 10,
                 question: 'из чего состоит кибер безопасность',
                 alo: 10

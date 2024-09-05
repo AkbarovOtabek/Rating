@@ -189,7 +189,7 @@ header .image-text .header-text {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 100%;
+  height: 50px;
   cursor: pointer;
   min-width: 60px;
 }

@@ -19,7 +19,8 @@ export default {
         selectedOption: '',
         attachedFiles: [],
         comments: '',
-        isAnswered: false
+        isAnswered: false,
+        answerYasNo: question.answerYasNo
       }))
     }
   },
@@ -80,7 +81,7 @@ export default {
           <form @submit="submitForm(index, $event)">
             <div class="checkbox-wrapper">
               <div>
-                <div class="checkbox-style">
+                <div v-if="question.answerYasNo" class="checkbox-style">
                   <input
                     type="radio"
                     :name="'question-' + index"
@@ -90,7 +91,7 @@ export default {
                   />
                   <label :for="'checkbox-yes-' + index">Да</label>
                 </div>
-                <div class="checkbox-style">
+                <div v-if="question.answerYasNo" class="checkbox-style">
                   <input
                     type="radio"
                     :name="'question-' + index"

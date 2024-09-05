@@ -18,6 +18,11 @@ const routes = [
     component: pages.LastQuantsHistory,
     name: 'lastQuantsHistory'
   },
+  {
+    path: '/history/lastQuantsHistory/theme/:id',
+    component: pages.ThemeQuestions,
+    name: 'themeQuestions'
+  },
   { path: '/quiz/questionType/:id', component: pages.QuestionType, name: 'questionType' }
 ]
 

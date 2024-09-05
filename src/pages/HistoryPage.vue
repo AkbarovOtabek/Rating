@@ -1,76 +1,9 @@
 <script>
-import LastQuantsHistory from './LastQuantsHistory.vue'
+import { API } from '../questions'
 export default {
-  components: {
-    LastQuantsHistory
-  },
   data() {
     return {
-      history: [
-        {
-          date: 2024,
-          quarts: [
-            {
-              quart: 1,
-              id: 12
-            },
-            {
-              quart: 2,
-              id: 11
-            },
-            {
-              quart: 3,
-              id: 10
-            },
-            {
-              quart: 4,
-              id: 9
-            }
-          ]
-        },
-        {
-          date: 2023,
-          quarts: [
-            {
-              quart: 1,
-              id: 8
-            },
-            {
-              quart: 2,
-              id: 7
-            },
-            {
-              quart: 3,
-              id: 6
-            },
-            {
-              quart: 4,
-              id: 5
-            }
-          ]
-        },
-        {
-          date: 2022,
-          quarts: [
-            {
-              quart: 1,
-              id: 4
-            },
-            {
-              quart: 2,
-              id: 3
-            },
-            {
-              quart: 3,
-              id: 2
-            },
-            {
-              quart: 4,
-              id: 1
-            }
-          ]
-        }
-      ]
+      history: API
     }
   }
 }
@@ -79,23 +12,22 @@ export default {
 <template>
   <div class="history">
     <div class="history-cards">
-      <div class="history-wrapper" v-for="element in history" :key="element.date">
-        <h2>{{ element.date }} год</h2>
+      <div class="history-wrapper" v-for="element in history" :key="element.year">
+        <h2>{{ element.year }} год</h2>
         <div class="history-quarts">
-          <a
-            v-for="quart in element.quarts"
-            :key="quart.id"
-            :href="`/history/lastQuarts/${quart.id}`"
+          <router-link
+            v-for="quant in element.quants"
+            :key="quant.id"
+            :to="{ name: 'lastQuantsHistory', params: { id: quant.id } }"
             class="history-card"
           >
-            {{ quart.quart }} - четверть
-          </a>
+            {{ quant.quant }} - четверть
+          </router-link>
         </div>
       </div>
     </div>
   </div>
 </template>
-
 <style scoped>
 .history {
   width: 100%;
