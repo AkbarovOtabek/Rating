@@ -15,18 +15,13 @@ export default {
 
 <template>
   <div class="search-and-profile" v-if="showNavBar">
-    <div class="search-header">
-      <form>
-        <input type="search" placeholder="Поиск..." />
-        <button type="submit" class="search-header-button">
-          <i
-            :style="{
-              color: ModeisActive ? 'var(--text-color)' : 'var(--toggle-color-dark)'
-            }"
-            class="bx bx-search icon long-short"
-          ></i>
-        </button>
-      </form>
+    <div class="header">
+      <h2>Система мониторинга информационной и кибербезопасности</h2>
+      <p>Tel: <span>(71)212-73-82</span></p>
+      <ul class="languages">
+        <li class="active-language">RU</li>
+        <li>UZ</li>
+      </ul>
     </div>
     <a href="/home" class="profile-header">
       <img src="../assets/icons/UserIcon.png" alt="" />
@@ -43,12 +38,19 @@ export default {
   margin: 0px 0px 50px;
   padding-top: 30px;
 }
-.search-header {
+.header {
+  box-shadow: 0px 0px 5px rgba(124, 141, 181, 0.22);
+  padding: 0px 30px;
+  height: 70px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
   width: 82%;
   background: var(--sidebar-color);
   border-radius: 10px;
 }
 .profile-header {
+  box-shadow: 0px 0px 5px rgba(124, 141, 181, 0.22);
   border-radius: 10px;
   width: 230px;
   padding: 0px 15px;
@@ -63,25 +65,25 @@ export default {
   border-radius: 50%;
   border: 1px solid transparent;
 }
-.search-header form {
-  height: 100%;
+.languages {
   display: flex;
+  width: 120px;
+  justify-content: space-between;
+  align-items: center;
 }
-.search-header form .search-header-button {
-  height: 60px;
-  width: 60px;
-  background: none;
-  border: none;
+.languages li {
+  box-shadow: 0px 0px 5px rgba(124, 141, 181, 0.22);
   cursor: pointer;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 50px;
+  border-radius: 4px;
 }
-.search-header input {
-  padding-left: 15px;
-  font-size: 16px;
-  outline: none;
-  border: none;
-  border-radius: 6px;
-  height: 100%;
-  width: 100%;
-  background: var(--sidebar-color);
+.languages .active-language {
+  color: var(--sidebar-color);
+  background-color: var(--primary-color);
 }
 </style>

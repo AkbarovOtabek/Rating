@@ -4,55 +4,10 @@ export default {
   components: { ChartsHomePage },
   data() {
     return {
-      sortCriteria: 'default', // 'quarter', 'date', 'id'
-      sortOrder: 'asc', // 'asc' или 'desc' для возрастающей и убывающей сортировки
-      selectedQuarter: 'default',
-      selectedDate: '',
-      selectedId: '',
-      visibleQuestions: 5,
       quantityQuestions: 80,
       answered: 74,
       rating: 10,
-      progress: 0,
-      lastPassedQuestions: [
-        { dateOfstart: 'January 1, 2021', dateOfFinish: 'January 15, 2021', quarters: 1, id: 1 },
-        { dateOfstart: 'March 1, 2021', dateOfFinish: 'March 15, 2021', quarters: 2, id: 2 },
-        { dateOfstart: 'Juny 1, 2021', dateOfFinish: 'Juny 15, 2021', quarters: 3, id: 3 },
-        {
-          dateOfstart: 'September 1, 2021',
-          dateOfFinish: 'September 15, 2021',
-          quarters: 4,
-          id: 4
-        },
-        { dateOfstart: 'January 1, 2022', dateOfFinish: 'January 15, 2022', quarters: 1, id: 5 },
-        { dateOfstart: 'March 1, 2022', dateOfFinish: 'March 15, 2022', quarters: 2, id: 6 },
-        { dateOfstart: 'Juny 1, 2022', dateOfFinish: 'Juny 15, 2022', quarters: 3, id: 7 },
-        {
-          dateOfstart: 'September 1, 2022',
-          dateOfFinish: 'September 15, 2022',
-          quarters: 4,
-          id: 8
-        },
-        { dateOfstart: 'January 1, 2023', dateOfFinish: 'January 15, 2023', quarters: 1, id: 9 },
-        { dateOfstart: 'March 1, 2023', dateOfFinish: 'March 15, 2023', quarters: 2, id: 10 },
-        { dateOfstart: 'Juny 1, 2023', dateOfFinish: 'Juny 15, 2023', quarters: 3, id: 11 },
-        {
-          dateOfstart: 'September 1, 2023',
-          dateOfFinish: 'September 15, 2023',
-          quarters: 4,
-          id: 12
-        },
-        { dateOfstart: 'January 1, 2024', dateOfFinish: 'January 15, 2024', quarters: 1, id: 13 },
-        { dateOfstart: 'March 1, 2024', dateOfFinish: 'March 15, 2024', quarters: 2, id: 14 },
-        { dateOfstart: 'Juny 1, 2024', dateOfFinish: 'Juny 15, 2024', quarters: 3, id: 15 },
-        {
-          dateOfstart: 'September 1, 2024',
-          dateOfFinish: 'September 15, 2024',
-          quarters: 4,
-          id: 16
-        }
-      ],
-      filteredQuestions: [] // Хранит результаты фильтрации
+      progress: 0
     }
   },
   computed: {
@@ -65,45 +20,6 @@ export default {
     displayedQuestions() {
       return this.filteredQuestions.slice(0, this.visibleQuestions)
     }
-  },
-  methods: {
-    loadMore() {
-      this.visibleQuestions += 5
-    },
-    applyFilter() {
-      // Применение фильтра при нажатии на "Найти"
-      this.visibleQuestions = 5 // Сброс видимых вопросов до начального значения
-      let questions = this.lastPassedQuestions
-
-      if (this.selectedQuarter !== 'default') {
-        questions = questions.filter(
-          (question) => question.quarters === parseInt(this.selectedQuarter)
-        )
-      }
-
-      if (this.selectedDate) {
-        const selectedDateStr = this.formatDate(new Date(this.selectedDate))
-        questions = questions.filter((question) => {
-          const questionDateStr = this.formatDate(new Date(question.dateOfstart))
-          return questionDateStr === selectedDateStr
-        })
-      }
-
-      if (this.selectedId) {
-        questions = questions.filter((question) => question.id === parseInt(this.selectedId))
-      }
-
-      this.filteredQuestions = questions // Сохранение отфильтрованных вопросов
-    },
-    formatDate(date) {
-      const year = date.getFullYear()
-      const month = (date.getMonth() + 1).toString().padStart(2, '0')
-      const day = date.getDate().toString().padStart(2, '0')
-      return `${year}-${month}-${day}`
-    }
-  },
-  mounted() {
-    this.filteredQuestions = this.lastPassedQuestions // По умолчанию отображаем все вопросы
   }
 }
 </script>
@@ -162,67 +78,45 @@ export default {
     </div>
     <div class="history-to-change">
       <div class="last-passed-questions">
-        <div class="passed-questions-top-section">
-          <h3>Последне отвеченные ответы на вопросы</h3>
-          <div class="passed-questions-top-filter">
-            <div>
-              <form class="form-for-filter" @submit.prevent="applyFilter">
-                <div>
-                  <select class="form-select" v-model="selectedQuarter">
-                    <option value="default">по четверти</option>
-                    <option value="1">1 четверть</option>
-                    <option value="2">2 четверть</option>
-                    <option value="3">3 четверть</option>
-                    <option value="4">4 четверть</option>
-                  </select>
-                </div>
-                <div class="form-input-for-date">
-                  <label for="date">По дате добавления</label>
-                  <input
-                    type="text"
-                    v-model="selectedDate"
-                    name="date"
-                    placeholder="January 1, 2022"
-                  />
-                </div>
-                <div class="form-input-for-id">
-                  <label for="id">По ID</label>
-                  <input type="number" name="id" placeholder="0" v-model="selectedId" />
-                </div>
-                <button type="submit" class="find-by-filter">Найти</button>
-              </form>
-            </div>
+        <div class="employees">
+          <h3 class="employees-header">Сотрудники организации</h3>
+          <div class="employees-body">
+            <table class="employees-table">
+              <tr class="employees-table-header">
+                <th>Ф.И.О</th>
+                <th>Должность</th>
+                <th>Логин</th>
+                <th>Статус</th>
+                <th>Группа</th>
+                <th>Дата регистрации</th>
+              </tr>
+              <tr class="employees-table-body">
+                <td>Акбаров Отабек Рустам угли</td>
+                <td>главный эксперт</td>
+                <td>o.akbarov@cbu</td>
+                <td>ACTIVE</td>
+                <td>Пользователь</td>
+                <td>09.04.2024</td>
+              </tr>
+              <tr class="employees-table-body">
+                <td>Акбаров Отабек Рустам угли</td>
+                <td>главный эксперт</td>
+                <td>o.akbarov@cbu</td>
+                <td>ACTIVE</td>
+                <td>Пользователь</td>
+                <td>09.04.2024</td>
+              </tr>
+              <tr class="employees-table-body">
+                <td>Акбаров Отабек Рустам угли</td>
+                <td>главный эксперт</td>
+                <td>o.akbarov@cbu</td>
+                <td>ACTIVE</td>
+                <td>Пользователь</td>
+                <td>09.04.2024</td>
+              </tr>
+            </table>
           </div>
         </div>
-        <table>
-          <tr>
-            <th>№</th>
-            <th>Номер ID</th>
-            <th>Начало добавления</th>
-            <th>Конец добавления</th>
-            <th>Четверть</th>
-            <th>Действие</th>
-          </tr>
-          <tr v-for="(element, number) in displayedQuestions" :key="element.id">
-            <td>{{ number + 1 }}</td>
-            <td>{{ element.id }}</td>
-            <td>{{ element.dateOfstart }}</td>
-            <td>{{ element.dateOfFinish }}</td>
-            <td>{{ element.quarters }}</td>
-            <td>
-              <a :href="`/home/lastPassed/${element.id}`" class="check-last-question">
-                Просмотреть
-              </a>
-            </td>
-          </tr>
-        </table>
-        <button
-          class="download-more"
-          v-if="visibleQuestions < lastPassedQuestions.length"
-          @click="loadMore"
-        >
-          Загрузить больше
-        </button>
       </div>
     </div>
   </div>
@@ -366,135 +260,34 @@ export default {
   width: 220px;
   text-align: center;
 }
-
-/* Последние выполненые задачи */
-.last-passed-questions {
-  width: 100%;
-  border: 1px solid #e6edff;
-  border-radius: 15px;
-  background-color: var(--sidebar-color);
-  margin-bottom: 30px;
-  padding: 20px;
-}
-.last-passed-questions table {
-  width: inherit;
-  text-align: center;
-}
-.last-passed-questions table td {
-  height: 54px;
-  border-top: 1px solid #e6edff;
-}
-.last-passed-questions table th {
-  height: 54px;
-  font-weight: 700;
-}
-.last-passed-questions table td:first-child {
-  padding-left: 25px;
-}
-.last-passed-questions table th:first-child {
-  padding-left: 25px;
-}
-table .check-last-question {
-  display: inline-block;
-  padding: 3px 15px;
-  box-shadow: 0px 0px 10px rgba(124, 141, 181, 0.22);
-  border: 1px solid transparent;
-  background-color: var(--primary-color);
-
-  height: 32px;
-  border-radius: 6px;
-  color: var(--sidebar-color);
-  cursor: pointer;
-  transition: var(--tran-02);
-}
-table .check-last-question:hover {
-  color: var(--primary-color);
-  background-color: var(--sidebar-color);
-  border: 1px solid var(--primary-color);
-}
-.passed-questions-top-section {
-  padding: 10px 20px;
+.employees-body {
+  padding: 30px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-.passed-questions-top-section h3 {
-  font-weight: 700;
-  font-size: 25px;
-}
-.passed-questions-top-filter {
-  margin-right: 20px;
-  padding: 10px 15px;
-  height: 50px;
-  border-radius: 6px;
-  box-shadow: 0px 0px 10px rgba(124, 141, 181, 0.22);
-  width: 58%;
-}
-.passed-questions-top-filter .form-for-filter {
-  display: flex;
-  align-items: center;
-  width: 100%;
-  justify-content: space-between;
-}
-.passed-questions-top-filter .form-for-filter .form-input-for-date input {
-  outline: none;
-  border-radius: 3px;
-  border: 1px solid grey;
-  width: 140px;
-  height: 30px;
-  margin-left: 10px;
-  padding: 1px 10px;
-}
-.passed-questions-top-filter .form-for-filter .form-input-for-id input {
-  outline: none;
-  border-radius: 3px;
-  border: 1px solid grey;
-  width: 50px;
-  height: 30px;
-  margin-left: 10px;
-  padding: 1px 10px;
-}
-.form-select {
-  outline: none;
-  display: inline-block;
-  border: 1px solid grey;
-  border-radius: 3px;
-  width: 140px;
-  height: 30px;
-  margin-left: 10px;
-  padding: 1px 10px;
-}
-.find-by-filter {
-  box-shadow: 0px 0px 10px rgba(124, 141, 181, 0.22);
-  border: 1px solid transparent;
-  background-color: var(--primary-color);
-  width: 100px;
-  height: 32px;
-  border-radius: 6px;
-  color: var(--sidebar-color);
-  cursor: pointer;
-  transition: var(--tran-02);
-}
-.find-by-filter:hover,
-.download-more:hover {
-  color: var(--primary-color);
-  background-color: var(--sidebar-color);
-  border: 1px solid var(--primary-color);
-}
-.download-more {
-  display: flex;
-  align-items: center;
   justify-content: center;
-  margin: 40px auto 20px;
+  align-items: center;
+  width: 100%;
+  background-color: var(--sidebar-color);
+  border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(124, 141, 181, 0.22);
-  border: 1px solid transparent;
-  background-color: var(--primary-color);
-  width: 200px;
-  height: 40px;
-  font-size: 18px;
-  border-radius: 6px;
-  color: var(--sidebar-color);
-  cursor: pointer;
-  transition: var(--tran-02);
+}
+.employees-table {
+  text-align: left;
+  width: 100%;
+}
+.employees-table-header {
+  padding: 0px 20px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  height: 70px;
+}
+.employees-table-body {
+  padding: 0px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  height: 70px;
+  border-top: 1px solid var(--primary-color);
 }
 </style>
