@@ -26,7 +26,7 @@ export default {
   methods: {
     toggleClass() {
       this.ModeisActive = !this.ModeisActive
-      localStorage.setItem('ModeisActive', JSON.stringify(this.ModeisActive)) // Сохраняем состояние
+      localStorage.setItem('ModeisActive', JSON.stringify(this.ModeisActive))
       this.updateBodyBackground(this.ModeisActive)
     },
     toggleLongBar() {
@@ -36,7 +36,6 @@ export default {
       document.body.style.backgroundColor = isActive
         ? getComputedStyle(document.documentElement).getPropertyValue('--body-color').trim()
         : getComputedStyle(document.documentElement).getPropertyValue('--body-color-dark').trim()
-      // Используем переменную CSS --body-color-dark
     }
   }
 }

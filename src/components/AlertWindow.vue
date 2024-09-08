@@ -13,7 +13,7 @@ export default {
   methods: {
     sendFinishButton(confirm = false) {
       if (!confirm) {
-        this.$emit('close') // Эмитим событие "close" для родителя
+        this.$emit('close')
       }
     }
   }
@@ -22,13 +22,11 @@ export default {
 
 <template>
   <div class="alert-wrapper" @click.self="$emit('close')">
-    <!-- Закрываем окно при клике вне него -->
     <div class="alert">
       <h3>?</h3>
       <p>Are you sure you want to submit the quiz?</p>
       <div class="alert-btn">
         <button @click="sendFinishButton(false)" type="button" class="button_no">Нет</button>
-        <!-- Закрытие при клике на "Нет" -->
         <button @click="sendFinishButton(true)" type="submit" class="button_yes">Да</button>
       </div>
     </div>

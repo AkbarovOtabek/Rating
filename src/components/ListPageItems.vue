@@ -4,19 +4,24 @@ export default {
     pageInfo: {
       type: Object,
       required: true
+    },
+    isActievPage: {
+      required: true,
+      type: Boolean
     }
   }
 }
 </script>
 
 <template>
-  <li class="nav-links">
+  <li :class="{ 'active-item': isActievPage }" class="nav-links">
     <a :href="pageInfo.page">
       <i :class="`bx bx-${pageInfo.icon} icon`"></i>
       <span class="text nav-text">{{ pageInfo.pageName }}</span>
     </a>
   </li>
 </template>
+
 <style>
 .sidebar li {
   height: 50px;
@@ -61,5 +66,13 @@ export default {
 }
 .sidebar.close li .text {
   display: none;
+}
+.active-item {
+  border-radius: 10px;
+  background-color: var(--primary-color-active);
+}
+.sidebar .active-item .icon,
+.sidebar .active-item .text {
+  color: var(--sidebar-color);
 }
 </style>

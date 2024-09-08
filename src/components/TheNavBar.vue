@@ -35,6 +35,11 @@ export default {
         { page: '/rating', pageName: 'Рейтинг', icon: 'bar-chart-square' }
       ]
     }
+  },
+  methods: {
+    isActievPage(page) {
+      return this.$route.path === page
+    }
   }
 }
 </script>
@@ -62,7 +67,12 @@ export default {
     <div class="menu-bar">
       <div class="menu">
         <ul class="menu-links">
-          <ListPageItems v-for="pageInfo in pageList" :key="pageInfo.page" :pageInfo="pageInfo" />
+          <ListPageItems
+            v-for="pageInfo in pageList"
+            :key="pageInfo.page"
+            :pageInfo="pageInfo"
+            :isActievPage="isActievPage(pageInfo.page)"
+          />
         </ul>
       </div>
       <div class="bottom-content">

@@ -218,6 +218,6 @@ export default {
   background-color: #f3cbcb;
 }
 .table-body-middle .table-body-text .BGRedAns {
-  background-color: #eb4444;
+  background-color: var(--warning-color);
 }
 </style>

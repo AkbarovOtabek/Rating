@@ -7,7 +7,41 @@ export default {
       quantityQuestions: 80,
       answered: 74,
       rating: 10,
-      progress: 0
+      progress: 0,
+      PersonInfo: [
+        {
+          name: 'Акбаров Отабек Рустам угли',
+          position: 'главный эксперт',
+          login: 'o.akbarov@cbu',
+          status: false,
+          userStatus: 'Пользователь',
+          dateOfRegistration: '09.04.2024'
+        },
+        {
+          name: 'Акбаров Отабек Рустам угли',
+          position: 'главный эксперт',
+          login: 'o.akbarov@cbu',
+          status: true,
+          userStatus: 'Пользователь',
+          dateOfRegistration: '09.04.2024'
+        },
+        {
+          name: 'Акбаров Отабек Рустам угли',
+          position: 'главный эксперт',
+          login: 'o.akbarov@cbu',
+          status: true,
+          userStatus: 'Пользователь',
+          dateOfRegistration: '09.04.2024'
+        },
+        {
+          name: 'Акбаров Отабек Рустам угли',
+          position: 'главный эксперт',
+          login: 'o.akbarov@cbu',
+          status: false,
+          userStatus: 'Пользователь',
+          dateOfRegistration: '09.04.2024'
+        }
+      ]
     }
   },
   computed: {
@@ -79,8 +113,8 @@ export default {
     <div class="history-to-change">
       <div class="last-passed-questions">
         <div class="employees">
-          <h3 class="employees-header">Сотрудники организации</h3>
           <div class="employees-body">
+            <h3 class="employees-header">Сотрудники организации</h3>
             <table class="employees-table">
               <tr class="employees-table-header">
                 <th>Ф.И.О</th>
@@ -90,29 +124,15 @@ export default {
                 <th>Группа</th>
                 <th>Дата регистрации</th>
               </tr>
-              <tr class="employees-table-body">
-                <td>Акбаров Отабек Рустам угли</td>
-                <td>главный эксперт</td>
-                <td>o.akbarov@cbu</td>
-                <td>ACTIVE</td>
-                <td>Пользователь</td>
-                <td>09.04.2024</td>
-              </tr>
-              <tr class="employees-table-body">
-                <td>Акбаров Отабек Рустам угли</td>
-                <td>главный эксперт</td>
-                <td>o.akbarov@cbu</td>
-                <td>ACTIVE</td>
-                <td>Пользователь</td>
-                <td>09.04.2024</td>
-              </tr>
-              <tr class="employees-table-body">
-                <td>Акбаров Отабек Рустам угли</td>
-                <td>главный эксперт</td>
-                <td>o.akbarov@cbu</td>
-                <td>ACTIVE</td>
-                <td>Пользователь</td>
-                <td>09.04.2024</td>
+              <tr class="employees-table-body" v-for="person in PersonInfo" :key="person">
+                <td>{{ person.name }}</td>
+                <td>{{ person.position }}</td>
+                <td>{{ person.login }}</td>
+                <td :class="{ statusBlocked: !person.status }">
+                  {{ person.status ? 'активный' : 'пасивный' }}
+                </td>
+                <td>{{ person.userStatus }}</td>
+                <td>{{ person.dateOfRegistration }}</td>
               </tr>
             </table>
           </div>
@@ -260,34 +280,99 @@ export default {
   width: 220px;
   text-align: center;
 }
+.employees-header {
+  font-size: 20px;
+  text-align: center;
+  font-weight: 600;
+}
 .employees-body {
-  padding: 30px;
+  gap: 20px;
+  padding: 20px 30px;
   display: flex;
-  justify-content: center;
-  align-items: center;
+  flex-direction: column;
   width: 100%;
   background-color: var(--sidebar-color);
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(124, 141, 181, 0.22);
 }
+
 .employees-table {
   text-align: left;
   width: 100%;
+  overflow-x: auto;
 }
 .employees-table-header {
-  padding: 0px 20px;
+  font-size: 20px;
+
   display: flex;
+  align-items: center;
   justify-content: space-between;
   width: 100%;
   height: 70px;
+  color: var(--sidebar-color);
+  border-radius: 8px 8px 0px 0px;
+
+  background-color: var(--primary-color);
+}
+.employees-table-header th {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  border-right: 1px solid white;
+}
+.employees-table-header th:nth-child(6) {
+  border-right: none;
 }
 .employees-table-body {
+  border: 1px solid rgba(103, 174, 255, 0.336);
   padding: 0px 20px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   width: 100%;
   height: 70px;
-  border-top: 1px solid var(--primary-color);
+}
+
+.employees-table-body td:nth-child(1),
+.employees-table-header th:nth-child(1) {
+  width: 340px;
+}
+.employees-table-body td:nth-child(2),
+.employees-table-header th:nth-child(2) {
+  width: 240px;
+}
+.employees-table-body td:nth-child(3),
+.employees-table-header th:nth-child(3) {
+  width: 220px;
+}
+.employees-table-body td:nth-child(4),
+.employees-table-header th:nth-child(4) {
+  width: 130px;
+}
+
+.employees-table-body td:nth-child(4) {
+  background-color: var(--primary-color);
+  color: var(--sidebar-color);
+  height: 40px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.employees-table-body td:nth-child(5),
+.employees-table-header th:nth-child(5) {
+  width: 218px;
+}
+.employees-table-body td:nth-child(6),
+.employees-table-header th:nth-child(6) {
+  width: 180px;
+}
+.employees-table-body td {
+  display: flex;
+  justify-content: center;
+}
+.employees-table-body td.statusBlocked {
+  background-color: var(--warning-color);
 }
 </style>

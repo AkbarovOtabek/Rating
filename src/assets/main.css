@@ -5,9 +5,11 @@
   --body-color: #eff5fc;
   --sidebar-color: #fff;
   --primary-color: #347ae2;
+  --primary-color-active: #7cb1ff;
   --primary-color-light: #f6f5ff;
   --toggle-color: #ddd;
   --text-color: #707070;
+  --warning-color: #eb4444;
 
   /* dark mode */
 
