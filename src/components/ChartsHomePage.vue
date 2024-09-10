@@ -20,32 +20,51 @@ export default defineComponent({
     Line
   },
   setup() {
+    const allLabels = [
+      '2022-1 квартал',
+      '2022-2 квартал',
+      '2022-3 квартал',
+      '2022-4 квартал',
+      '2023-1 квартал',
+      '2023-2 квартал',
+      '2023-3 квартал',
+      '2023-4 квартал',
+      '2024-1 квартал',
+      '2024-2 квартал',
+      '2024-3 квартал',
+      '2024-4 квартал',
+      '2025-1 квартал',
+      '2025-2 квартал',
+      '2025-3 квартал',
+      '2025-4 квартал'
+    ]
+
+    const allData = [1, 35, 10, 25, 30, 15, 20, 35, 10, 30, 20, 25, 10, 30, 10]
+
+    const currentYear = new Date().getFullYear()
+
+    const last3Years = [currentYear - 2, currentYear - 1, currentYear]
+
+    const filteredLabels = allLabels.filter((label) => {
+      const year = parseInt(label.split('-')[0])
+      return last3Years.includes(year)
+    })
+
+    const firstIndex = allLabels.findIndex((label) =>
+      last3Years.includes(parseInt(label.split('-')[0]))
+    )
+
+    const filteredData = allData.slice(firstIndex, firstIndex + filteredLabels.length)
+
     const chartData = ref({
-      labels: [
-        '2022-1 квартал',
-        '2022-2 квартал',
-        '2022-3 квартал',
-        '2022-4 квартал',
-        '2023-1 квартал',
-        '2023-2 квартал',
-        '2023-3 квартал',
-        '2023-4 квартал',
-        '2024-1 квартал',
-        '2024-2 квартал',
-        '2024-3 квартал',
-        '2024-4 квартал',
-        '2025-1 квартал',
-        '2025-2 квартал',
-        '2025-3 квартал',
-        '2025-4 квартал'
-      ],
+      labels: filteredLabels,
       datasets: [
         {
           label: '',
           backgroundColor: 'rgba(54, 162, 235, 0.2)',
           borderColor: 'rgba(54, 162, 235, 1)',
           borderWidth: 2,
-          data: [1, 35, 10, 25, 30, 15, 20, 35, 10, 30, 20, 25, 10, 30, 10]
+          data: filteredData
         }
       ]
     })
@@ -78,7 +97,7 @@ export default defineComponent({
       },
       plugins: {
         legend: {
-          display: false // Отключаем легенду
+          display: false
         }
       },
       animation: false
@@ -102,13 +121,13 @@ export default defineComponent({
 
 <style scoped>
 .chart-scroll-container {
-  overflow-x: auto; /* Только горизонтальная прокрутка */
+  overflow-x: auto;
   white-space: nowrap;
   width: 100%;
 }
 
 .chart-container {
-  width: 1500px; /* Ширина диаграммы */
+  width: 100%;
   height: 390px;
   position: relative;
 }

@@ -113,7 +113,7 @@ export default {
 </template>
 <style scoped>
 .notification {
-  width: inherit;
+  width: 98%;
 }
 .notification h2 {
   margin-bottom: 25px;

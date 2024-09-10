@@ -57,6 +57,7 @@ export default {
 </template>
 <style scoped>
 .quiz {
+  width: 98%;
   border-radius: 15px;
   background-color: var(--sidebar-color);
   width: 100%;

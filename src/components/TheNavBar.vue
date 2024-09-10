@@ -33,12 +33,24 @@ export default {
         { page: '/history', pageName: 'История', icon: 'food-menu' },
         { page: '/notification', pageName: 'Уведомление', icon: 'bell' },
         { page: '/rating', pageName: 'Рейтинг', icon: 'bar-chart-square' }
-      ]
+      ],
+      showModeText: false // Переменная для отображения текста режима
     }
   },
   methods: {
     isActievPage(page) {
       return this.$route.path === page
+    }
+  },
+  watch: {
+    longBar(newValue) {
+      if (newValue) {
+        setTimeout(() => {
+          this.showModeText = true
+        }, 150)
+      } else {
+        this.showModeText = false
+      }
     }
   }
 }
@@ -81,7 +93,10 @@ export default {
             <i v-if="ModeisActive" class="bx bx-moon icon moon"></i>
             <i v-else class="bx bx-sun icon sun"></i>
           </div>
-          <span class="mode-text text">{{ ModeisActive ? 'Темный режим' : 'Светлый режим' }} </span>
+          <!-- Показ текста после задержки в 1 секунду -->
+          <span v-if="showModeText" class="mode-text text">{{
+            ModeisActive ? 'Темный режим' : 'Светлый режим'
+          }}</span>
 
           <div @click="toggleClass" class="toggle-switch">
             <span class="switch"></span>
@@ -113,12 +128,14 @@ export default {
 }
 .sidebar {
   box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.514);
+  margin-right: 40px;
+  height: auto;
   position: fixed;
   top: 0;
   left: 0;
-  height: 100%;
   padding: 40px 14px 10px;
   width: 270px;
+  height: 100vh;
   transition: var(--tran-03);
   background: var(--sidebar-color);
   z-index: 999;
@@ -174,7 +191,7 @@ header .image-text .header-text {
 }
 .sidebar .menu-bar {
   padding: 60px 0px;
-  height: calc(100% - 25px);
+  height: calc(100% - 34px);
   display: flex;
   flex-direction: column;
   justify-content: space-between;

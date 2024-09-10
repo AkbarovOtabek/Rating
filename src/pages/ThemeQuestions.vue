@@ -84,22 +84,22 @@ export default {
   border: 1px solid transparent;
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 98%;
 }
 .question-item {
   border: 1px solid #ccc;
   border-radius: 8px;
   background-color: #f9f9f9;
   padding: 30px;
+  margin-bottom: 30px;
 }
 .theme-questions h2 {
   margin-bottom: 30px;
 }
 .table {
-  gap: 30px;
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 98%;
 }
 .table-header {
   text-align: center;

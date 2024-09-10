@@ -30,7 +30,7 @@ export default {
 </template>
 <style scoped>
 .history {
-  width: 100%;
+  width: 98%;
 }
 .history-cards {
   display: flex;
@@ -41,7 +41,7 @@ export default {
 }
 .history-wrapper {
   padding: 30px;
-  width: 100%;
+  width: 82%;
   border-radius: 17px;
   background-color: var(--sidebar-color);
   box-shadow: 0px 0px 10px rgba(124, 141, 181, 0.22);

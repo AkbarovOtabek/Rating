@@ -142,7 +142,7 @@ export default {
   border: 1px solid transparent;
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 98%;
 }
 .question-item {
   margin-bottom: 20px;

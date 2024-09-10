@@ -6,7 +6,7 @@ export default {
   components: { TheNavBar, SearchAndProfileBar },
   data() {
     return {
-      ModeisActive: JSON.parse(localStorage.getItem('ModeisActive')) ?? true, // Загружаем состояние
+      ModeisActive: JSON.parse(localStorage.getItem('ModeisActive')) ?? true,
       longBar: false
     }
   },
@@ -43,14 +43,15 @@ export default {
 
 <template>
   <div class="body" :class="{ 'body-dark': !ModeisActive }">
-    <div class="none" :class="{ container: showNavBar }">
-      <TheNavBar
-        :toggleClass="toggleClass"
-        :toggleLongBar="toggleLongBar"
-        :ModeisActive="ModeisActive"
-        :longBar="longBar"
-        :showNavBar="showNavBar"
-      />
+    <TheNavBar
+      :toggleClass="toggleClass"
+      :toggleLongBar="toggleLongBar"
+      :ModeisActive="ModeisActive"
+      :longBar="longBar"
+      :showNavBar="showNavBar"
+    />
+
+    <div class="none" :class="{ container: showNavBar, width: longBar }">
       <SearchAndProfileBar :showNavBar="showNavBar" :ModeisActive="ModeisActive" />
       <router-view></router-view>
     </div>
@@ -58,9 +59,26 @@ export default {
 </template>
 
 <style scoped>
+.body {
+  display: flex;
+  min-height: 100%;
+}
+
+.none.container {
+  position: relative;
+  margin: 0 auto;
+  margin-left: 125px;
+  width: calc(100% - 125px);
+  flex-grow: 1;
+  transition: var(--tran-03);
+}
+.none.container.width {
+  width: calc(100% - 225px);
+  margin-left: 325px;
+}
 .body.body-dark {
   width: 100%;
-  height: 100vh;
+  height: 100%;
   background-color: var(--body-color-dark) !important;
 }
 </style>

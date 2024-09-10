@@ -34,7 +34,7 @@ export default {
 .search-and-profile {
   display: flex;
   justify-content: space-between;
-  width: 1440px;
+  width: 98%;
   margin: 0px 0px 50px;
   padding-top: 30px;
 }
@@ -45,7 +45,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 82%;
+  width: 83%;
   background: var(--sidebar-color);
   border-radius: 10px;
 }

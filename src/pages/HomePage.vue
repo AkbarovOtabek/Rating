@@ -129,7 +129,7 @@ export default {
                 <td>{{ person.position }}</td>
                 <td>{{ person.login }}</td>
                 <td :class="{ statusBlocked: !person.status }">
-                  {{ person.status ? 'активный' : 'пасивный' }}
+                  {{ person.status ? 'активный' : 'отключен' }}
                 </td>
                 <td>{{ person.userStatus }}</td>
                 <td>{{ person.dateOfRegistration }}</td>
@@ -143,6 +143,7 @@ export default {
 </template>
 <style scoped>
 .home-content {
+  width: 98%;
   display: flex;
   flex-direction: column;
   gap: 30px;
@@ -219,7 +220,6 @@ export default {
   box-shadow: 0px 0px 10px rgba(124, 141, 181, 0.22);
 }
 .statistics-graphic {
-  width: 100%;
   display: flex;
   justify-content: space-between;
 }
@@ -227,9 +227,9 @@ export default {
   background-color: var(--sidebar-color);
   border-radius: 15px;
   border: 1px solid #e6edff;
-  width: 73%;
+  width: 72%;
   height: 500px;
-  padding: 5px 40px;
+  padding: 5px 20px;
 }
 .statistics-graphic-left h3 {
   margin: 15px;
@@ -241,7 +241,7 @@ export default {
   background-color: var(--sidebar-color);
   border-radius: 15px;
   border: 1px solid #e6edff;
-  width: 25%;
+  width: 26%;
   height: 500px;
   display: flex;
   flex-direction: column;
@@ -294,6 +294,7 @@ export default {
   background-color: var(--sidebar-color);
   border-radius: 10px;
   box-shadow: 0px 0px 10px rgba(124, 141, 181, 0.22);
+  margin-bottom: 20px;
 }
 
 .employees-table {
@@ -326,7 +327,7 @@ export default {
 }
 .employees-table-body {
   border: 1px solid rgba(103, 174, 255, 0.336);
-  padding: 0px 20px;
+
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -336,19 +337,19 @@ export default {
 
 .employees-table-body td:nth-child(1),
 .employees-table-header th:nth-child(1) {
-  width: 340px;
+  width: 26%;
 }
 .employees-table-body td:nth-child(2),
 .employees-table-header th:nth-child(2) {
-  width: 240px;
+  width: 19%;
 }
 .employees-table-body td:nth-child(3),
 .employees-table-header th:nth-child(3) {
-  width: 220px;
+  width: 17%;
 }
 .employees-table-body td:nth-child(4),
 .employees-table-header th:nth-child(4) {
-  width: 130px;
+  width: 10%;
 }
 
 .employees-table-body td:nth-child(4) {
@@ -362,11 +363,11 @@ export default {
 }
 .employees-table-body td:nth-child(5),
 .employees-table-header th:nth-child(5) {
-  width: 218px;
+  width: 13%;
 }
 .employees-table-body td:nth-child(6),
 .employees-table-header th:nth-child(6) {
-  width: 180px;
+  width: 14%;
 }
 .employees-table-body td {
   display: flex;

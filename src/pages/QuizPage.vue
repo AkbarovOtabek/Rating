@@ -56,7 +56,7 @@ export default {
 .quiz {
   border-radius: 15px;
   background-color: var(--sidebar-color);
-  width: 100%;
+  width: 98%;
   margin-top: 40px;
 }
 .quiz h2 {
