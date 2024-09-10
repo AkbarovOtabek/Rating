@@ -2,6 +2,12 @@
 import ChartsHomePage from '@/components/ChartsHomePage.vue'
 export default {
   components: { ChartsHomePage },
+  props: {
+    ModeisActive: {
+      type: Boolean,
+      required: true
+    }
+  },
   data() {
     return {
       quantityQuestions: 80,
@@ -59,7 +65,7 @@ export default {
 </script>
 
 <template>
-  <div class="home-content">
+  <div class="home-content" :class="{ darktheme: !ModeisActive }">
     <div class="statistics-bar">
       <div class="profile-statistics">
         <div>
@@ -96,7 +102,7 @@ export default {
     <div class="statistics-graphic">
       <div class="statistics-graphic-left">
         <h3>История изменения положения</h3>
-        <ChartsHomePage />
+        <ChartsHomePage :ModeisActive="ModeisActive" />
       </div>
       <div class="statistics-graphic-right">
         <div
@@ -375,5 +381,20 @@ export default {
 }
 .employees-table-body td.statusBlocked {
   background-color: var(--warning-color);
+}
+
+.home-content.darktheme .statistics-bar,
+.home-content.darktheme .statistics-graphic-left,
+.home-content.darktheme .statistics-graphic-right,
+.home-content.darktheme .employees-body {
+  background: var(--primary-color-light-dark);
+  color: var(--primary-color-light);
+}
+
+.home-content.darktheme .statistics-bar .profile-statistics span,
+.home-content.darktheme .statistics-bar .profile-statistics h3,
+.home-content.darktheme .statistics-bar .profile-statistics p {
+  box-shadow: none;
+  border: 1px solid white;
 }
 </style>

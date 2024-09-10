@@ -1,6 +1,12 @@
 <script>
 import { API } from '../questions'
 export default {
+  props: {
+    ModeisActive: {
+      type: Boolean,
+      required: true
+    }
+  },
   data() {
     return {
       history: API
@@ -10,7 +16,7 @@ export default {
 </script>
 
 <template>
-  <div class="history">
+  <div class="history" :class="{ darktheme: !ModeisActive }">
     <div class="history-cards">
       <div class="history-wrapper" v-for="element in history" :key="element.year">
         <h2>{{ element.year }} год</h2>
@@ -72,6 +78,18 @@ export default {
   transition: var(--tran-02);
 }
 .history-card:hover {
+  background-color: var(--primary-color);
+  color: var(--sidebar-color);
+  border-color: var(--sidebar-color);
+}
+.history.darktheme .history-wrapper {
+  background: var(--primary-color-light-dark);
+  color: var(--primary-color-light);
+}
+.history.darktheme .history-wrapper .history-card {
+  background-color: var(--body-sidebar-color-dark);
+}
+.history.darktheme .history-wrapper .history-card:hover {
   background-color: var(--primary-color);
   color: var(--sidebar-color);
   border-color: var(--sidebar-color);

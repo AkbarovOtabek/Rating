@@ -7,7 +7,7 @@ export default {
   data() {
     return {
       ModeisActive: JSON.parse(localStorage.getItem('ModeisActive')) ?? true,
-      longBar: false
+      longBar: JSON.parse(localStorage.getItem('longBar')) ?? false
     }
   },
   computed: {
@@ -18,6 +18,10 @@ export default {
   watch: {
     ModeisActive(newVal) {
       this.updateBodyBackground(newVal)
+      localStorage.setItem('ModeisActive', JSON.stringify(newVal))
+    },
+    longBar(newVal) {
+      localStorage.setItem('longBar', JSON.stringify(newVal))
     }
   },
   mounted() {
@@ -26,8 +30,6 @@ export default {
   methods: {
     toggleClass() {
       this.ModeisActive = !this.ModeisActive
-      localStorage.setItem('ModeisActive', JSON.stringify(this.ModeisActive))
-      this.updateBodyBackground(this.ModeisActive)
     },
     toggleLongBar() {
       this.longBar = !this.longBar
@@ -53,7 +55,7 @@ export default {
 
     <div class="none" :class="{ container: showNavBar, width: longBar }">
       <SearchAndProfileBar :showNavBar="showNavBar" :ModeisActive="ModeisActive" />
-      <router-view></router-view>
+      <router-view :ModeisActive="ModeisActive"></router-view>
     </div>
   </div>
 </template>
@@ -74,7 +76,7 @@ export default {
 }
 .none.container.width {
   width: calc(100% - 225px);
-  margin-left: 325px;
+  margin-left: 305px;
 }
 .body.body-dark {
   width: 100%;

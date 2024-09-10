@@ -14,7 +14,7 @@ export default {
 </script>
 
 <template>
-  <div class="search-and-profile" v-if="showNavBar">
+  <div class="search-and-profile" v-if="showNavBar" :class="{ darktheme: !ModeisActive }">
     <div class="header">
       <h2>Система мониторинга информационной и кибербезопасности</h2>
       <p>Tel: <span>(71)212-73-82</span></p>
@@ -48,6 +48,9 @@ export default {
   width: 83%;
   background: var(--sidebar-color);
   border-radius: 10px;
+}
+.header h2 {
+  font-size: 22px;
 }
 .profile-header {
   box-shadow: 0px 0px 5px rgba(124, 141, 181, 0.22);
@@ -85,5 +88,11 @@ export default {
 .languages .active-language {
   color: var(--sidebar-color);
   background-color: var(--primary-color);
+}
+
+.search-and-profile.darktheme .header,
+.search-and-profile.darktheme .profile-header {
+  color: var(--primary-color-light);
+  background: var(--primary-color-light-dark);
 }
 </style>

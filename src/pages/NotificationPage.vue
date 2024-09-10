@@ -2,6 +2,12 @@
 import NotificationCards from '../components/NotificationCards.vue'
 export default {
   components: { NotificationCards },
+  props: {
+    ModeisActive: {
+      type: Boolean,
+      required: true
+    }
+  },
   data() {
     return {
       notificationsData: [
@@ -107,6 +113,7 @@ export default {
         v-for="element in notificationsData"
         :key="element.id"
         :element="element"
+        :ModeisActive="ModeisActive"
       />
     </div>
   </div>

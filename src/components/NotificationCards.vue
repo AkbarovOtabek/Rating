@@ -4,12 +4,16 @@ export default {
     element: {
       required: true,
       type: Object
+    },
+    ModeisActive: {
+      type: Boolean,
+      required: true
     }
   }
 }
 </script>
 <template>
-  <div class="notifications-card">
+  <div class="notifications-card" :class="{ darktheme: !ModeisActive }">
     <img v-bind:src="element.image" alt="" />
     <div class="notifications-card-text">
       <h4>{{ element.title }}</h4>
@@ -56,7 +60,7 @@ export default {
 }
 .notifications-card-text p {
   font-size: 16px;
-
+  width: 92%;
   margin-bottom: 15px;
 }
 .notifications-card-text span {
@@ -78,6 +82,17 @@ export default {
   transition: var(--tran-02);
 }
 .notifications-card:hover .toggle {
+  color: var(--sidebar-color);
+}
+.notifications-card.darktheme {
+  background-color: var(--primary-color-light-dark);
+  color: var(--primary-color-light);
+}
+.notifications-card.darktheme .notifications-card-links {
+  color: var(--primary-color-light);
+}
+.notifications-card.darktheme:hover {
+  background-color: var(--primary-color);
   color: var(--sidebar-color);
 }
 </style>

@@ -19,7 +19,13 @@ export default defineComponent({
   components: {
     Line
   },
-  setup() {
+  props: {
+    ModeisActive: {
+      type: Boolean,
+      required: true
+    }
+  },
+  setup(props) {
     const allLabels = [
       '2022-1 квартал',
       '2022-2 квартал',
@@ -61,8 +67,10 @@ export default defineComponent({
       datasets: [
         {
           label: '',
-          backgroundColor: 'rgba(54, 162, 235, 0.2)',
-          borderColor: 'rgba(54, 162, 235, 1)',
+          backgroundColor: props.ModeisActive
+            ? 'rgba(255, 255, 255, 0.2)'
+            : 'rgba(54, 162, 235, 0.2)',
+          borderColor: props.ModeisActive ? rgba(255, 255, 255, 0.2) : 'rgba(54, 162, 235, 1)',
           borderWidth: 2,
           data: filteredData
         }
@@ -121,7 +129,6 @@ export default defineComponent({
 
 <style scoped>
 .chart-scroll-container {
-  overflow-x: auto;
   white-space: nowrap;
   width: 100%;
 }

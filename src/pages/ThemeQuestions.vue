@@ -2,6 +2,12 @@
 import { API } from '../questions'
 
 export default {
+  props: {
+    ModeisActive: {
+      type: Boolean,
+      required: true
+    }
+  },
   data() {
     return {
       theme: {}
@@ -33,7 +39,7 @@ export default {
 }
 </script>
 <template>
-  <div class="theme-questions">
+  <div class="theme-questions" :class="{ darktheme: !ModeisActive }">
     <h2>Вопросы по теме "{{ theme.name }}"</h2>
     <div class="table">
       <div class="table-header">
@@ -113,6 +119,7 @@ export default {
   color: var(--sidebar-color);
   border: 1px solid #ccc;
   background-color: var(--primary-color);
+  margin-bottom: 30px;
 }
 .table-header h3:nth-child(1),
 .table-body h4:nth-child(1) {
@@ -219,5 +226,21 @@ export default {
 }
 .table-body-middle .table-body-text .BGRedAns {
   background-color: var(--warning-color);
+}
+.theme-questions.darktheme h2 {
+  color: var(--primary-color-light);
+}
+.theme-questions.darktheme .question-item {
+  background: var(--primary-color-light-dark);
+  color: var(--primary-color-light);
+}
+.theme-questions.darktheme .table-body-text p[data-v-7515f466]:nth-child(3) {
+  background-color: #477e8f;
+}
+.theme-questions.darktheme
+  .table-body-middle
+  .table-body-text
+  p[data-v-7515f466]:nth-child(3).BGRedCom {
+  background-color: var(--dark-warning-color);
 }
 </style>

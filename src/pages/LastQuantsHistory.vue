@@ -2,6 +2,12 @@
 import { API } from '../questions'
 
 export default {
+  props: {
+    ModeisActive: {
+      type: Boolean,
+      required: true
+    }
+  },
   data() {
     return {
       themes: {}
@@ -32,7 +38,7 @@ export default {
 </script>
 
 <template>
-  <div class="quiz">
+  <div class="quiz" :class="{ darktheme: !ModeisActive }">
     <div class="cards">
       <h2>Темы для проверки безопасности {{ themes.year }} за {{ themes.quant }} квартал</h2>
       <div class="quiz-card-wrapper">
@@ -41,6 +47,7 @@ export default {
           v-for="questionTheme in themes.themes"
           :key="questionTheme.id"
           :href="`/history/lastQuantsHistory/theme/${questionTheme.id}`"
+          :ModeisActive="ModeisActive"
         >
           <div class="procent-done-works">
             <p>выполнен на 99%</p>
@@ -60,7 +67,6 @@ export default {
   width: 98%;
   border-radius: 15px;
   background-color: var(--sidebar-color);
-  width: 100%;
   margin-top: 40px;
 }
 .quiz h2 {
@@ -71,6 +77,7 @@ export default {
 }
 
 .quiz .cards {
+  width: 100%;
   display: flex;
   flex-direction: column;
   padding: 34px;
@@ -131,5 +138,10 @@ export default {
   border-radius: 12px;
   right: 10px;
   top: 10px;
+}
+
+.quiz.darktheme {
+  background: var(--primary-color-light-dark);
+  color: var(--primary-color-light);
 }
 </style>

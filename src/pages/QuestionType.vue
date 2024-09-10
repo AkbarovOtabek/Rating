@@ -2,6 +2,12 @@
 import { latestYearAndQuant } from '../questions'
 
 export default {
+  props: {
+    ModeisActive: {
+      type: Boolean,
+      required: true
+    }
+  },
   data() {
     return {
       questions: []
@@ -62,7 +68,7 @@ export default {
 </script>
 
 <template>
-  <div class="questionType">
+  <div class="questionType" :class="{ darktheme: !ModeisActive }">
     <div
       v-for="(question, index) in questions"
       :key="index"
@@ -248,6 +254,7 @@ form .textarea-wrapper {
   align-items: flex-end;
 }
 form textarea {
+  outline: none;
   font-size: 16px;
   width: 100%;
   height: 200px;
@@ -329,5 +336,16 @@ form .textarea-wrapper button:hover {
 }
 .answered {
   box-shadow: 0px 0px 5px var(--primary-color);
+}
+.questionType.darktheme .question-item {
+  background: var(--primary-color-light-dark);
+  color: var(--primary-color-light);
+}
+.questionType.darktheme .question-item textarea {
+  background: var(--primary-color-light-dark);
+  color: var(--primary-color-light);
+}
+.questionType.darktheme .answered {
+  box-shadow: 0px 0px 15px var(--primary-color);
 }
 </style>

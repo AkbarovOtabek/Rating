@@ -1,5 +1,11 @@
 <script>
 export default {
+  props: {
+    ModeisActive: {
+      type: Boolean,
+      required: true
+    }
+  },
   data() {
     return {
       selectedYear: null,
@@ -292,7 +298,7 @@ export default {
 </script>
 
 <template>
-  <div class="rating">
+  <div class="rating" :class="{ darktheme: !ModeisActive }">
     <div class="filter-and-header-rating">
       <h3>Таблица ретинга за {{ selectedYear }}</h3>
       <form action="" class="filter-rating">
@@ -341,6 +347,7 @@ export default {
 }
 .filter-and-header-rating .filter-rating,
 .filter-and-header-rating h3 {
+  border: 1px solid transparent;
   border-radius: 12px;
   height: 60px;
   background-color: var(--sidebar-color);
@@ -352,6 +359,7 @@ export default {
 }
 .filter-and-header-rating .filter-rating {
   justify-content: space-between;
+  border: 1px solid transparent;
   width: 400px;
   text-align: center;
 }
@@ -409,5 +417,17 @@ export default {
 .rating-table .table-header > h3 {
   width: 27%;
   text-align: center;
+}
+.rating.darktheme .filter-and-header-rating h3,
+.rating.darktheme .filter-rating,
+.rating.darktheme .filter-rating select,
+.rating.darktheme .table-body {
+  background: var(--primary-color-light-dark);
+  color: var(--primary-color-light);
+}
+.rating.darktheme .filter-and-header-rating h3,
+.rating.darktheme .filter-rating select,
+.rating.darktheme .filter-rating {
+  border: 1px solid #e6edff;
 }
 </style>

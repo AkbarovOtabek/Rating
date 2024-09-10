@@ -47,7 +47,7 @@ export default {
       if (newValue) {
         setTimeout(() => {
           this.showModeText = true
-        }, 150)
+        }, 180)
       } else {
         this.showModeText = false
       }
@@ -141,7 +141,7 @@ export default {
   z-index: 999;
 }
 .sidebar.close {
-  width: 85px;
+  width: 87px;
 }
 
 .sidebar.close .text,

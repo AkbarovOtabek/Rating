@@ -1,6 +1,12 @@
 <script>
 import { latestYearAndQuant } from '../questions'
 export default {
+  props: {
+    ModeisActive: {
+      type: Boolean,
+      required: true
+    }
+  },
   data() {
     return {
       themes: latestYearAndQuant,
@@ -26,12 +32,13 @@ export default {
 </script>
 
 <template>
-  <div class="quiz">
+  <div class="quiz" :class="{ darktheme: !ModeisActive }">
     <div class="cards">
       <h2>Вопросы для проверки безопасности {{ themes.year }} за {{ themes.quant }} квартал</h2>
       <div class="quiz-card-wrapper">
         <a
           class="card"
+          :ModeisActive="ModeisActive"
           v-for="questionTheme in themes.themes"
           :key="questionTheme.id"
           :href="`/quiz/questionType/${questionTheme.id}`"
@@ -120,5 +127,10 @@ export default {
   border-radius: 12px;
   right: 10px;
   top: 10px;
+}
+
+.quiz.darktheme {
+  background: var(--primary-color-light-dark);
+  color: var(--primary-color-light);
 }
 </style>
