@@ -7,6 +7,8 @@ export const API = [
         id: 1,
         themes: [
           {
+            image:
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEosvitCv6VxFQ14O_l6cnagf7GYFVvuwGGA&s',
             description: 'описание',
             id: 1,
             datecreating: '2024:09:14',
@@ -34,6 +36,8 @@ export const API = [
             ]
           },
           {
+            image:
+              'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQEosvitCv6VxFQ14O_l6cnagf7GYFVvuwGGA&s',
             description: 'описание2',
             id: 2,
             datecreating: '2024:09:14',

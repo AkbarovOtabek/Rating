@@ -397,4 +397,10 @@ export default {
   box-shadow: none;
   border: 1px solid white;
 }
+.home-content.darktheme .statistics-graphic-right .progress-bar span {
+  color: var(--primary-color-light);
+}
+.home-content.darktheme .statistics-graphic-right .progress-bar::before {
+  background-color: var(--primary-color-light-dark);
+}
 </style>
