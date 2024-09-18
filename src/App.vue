@@ -7,7 +7,8 @@ export default {
   data() {
     return {
       ModeisActive: JSON.parse(localStorage.getItem('ModeisActive')) ?? true,
-      longBar: JSON.parse(localStorage.getItem('longBar')) ?? false
+      longBar: JSON.parse(localStorage.getItem('longBar')) ?? false,
+      langRU: JSON.parse(localStorage.getItem('langRU')) ?? true
     }
   },
   computed: {
@@ -38,6 +39,10 @@ export default {
       document.body.style.backgroundColor = isActive
         ? getComputedStyle(document.documentElement).getPropertyValue('--body-color').trim()
         : getComputedStyle(document.documentElement).getPropertyValue('--body-color-dark').trim()
+    },
+    changeLanguage(lang) {
+      this.$i18n.locale = lang
+      this.langRU = !this.langRU
     }
   }
 }
@@ -51,10 +56,16 @@ export default {
       :ModeisActive="ModeisActive"
       :longBar="longBar"
       :showNavBar="showNavBar"
+      :langRU="langRU"
     />
 
     <div class="none" :class="{ container: showNavBar, width: longBar }">
-      <SearchAndProfileBar :showNavBar="showNavBar" :ModeisActive="ModeisActive" />
+      <SearchAndProfileBar
+        :showNavBar="showNavBar"
+        :ModeisActive="ModeisActive"
+        :changeLanguage="changeLanguage"
+        :langRU="langRU"
+      />
       <router-view :ModeisActive="ModeisActive"></router-view>
     </div>
   </div>
@@ -65,7 +76,9 @@ export default {
   display: flex;
   min-height: 100%;
 }
-
+.none.width {
+  width: 100%;
+}
 .none.container {
   position: relative;
   margin: 0 auto;

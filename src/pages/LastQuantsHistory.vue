@@ -40,7 +40,7 @@ export default {
 <template>
   <div class="quiz" :class="{ darktheme: !ModeisActive }">
     <div class="cards">
-      <h2>Темы для проверки безопасности {{ themes.year }} за {{ themes.quant }} квартал</h2>
+      <h2>{{ $t('LastQunatHistory.Title', { year: themes.year, quant: themes.quant }) }}</h2>
       <div class="quiz-card-wrapper">
         <a
           class="card"
@@ -50,7 +50,7 @@ export default {
           :ModeisActive="ModeisActive"
         >
           <div class="procent-done-works">
-            <p>выполнен на 99%</p>
+            <p>{{ $t('LastQunatHistory.Done', { status: '99%' }) }}</p>
           </div>
           <img class="card-img" :src="questionTheme.image" alt="" />
           <div class="card-text">

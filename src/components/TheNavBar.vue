@@ -23,23 +23,41 @@ export default {
     showNavBar: {
       type: Boolean,
       required: true
+    },
+    langRU: {
+      type: Boolean,
+      required: true
     }
   },
   data() {
     return {
       pageList: [
-        { page: '/home', pageName: 'Домой', icon: 'home' },
-        { page: '/quiz', pageName: 'Опросник', icon: 'message-alt-detail' },
-        { page: '/history', pageName: 'История', icon: 'food-menu' },
-        { page: '/notification', pageName: 'Уведомление', icon: 'bell' },
-        { page: '/rating', pageName: 'Рейтинг', icon: 'bar-chart-square' }
+        { page: '/home', pageName: this.$t('navbar.home'), icon: 'home' },
+        { page: '/quiz', pageName: this.$t('navbar.quiz'), icon: 'message-alt-detail' },
+        { page: '/history', pageName: this.$t('navbar.history'), icon: 'food-menu' },
+        { page: '/notification', pageName: this.$t('navbar.notification'), icon: 'bell' },
+        { page: '/rating', pageName: this.$t('navbar.rating'), icon: 'bar-chart-square' }
       ],
       showModeText: false // Переменная для отображения текста режима
     }
   },
+  mounted() {
+    // Инициализируем showModeText при загрузке в зависимости от longBar
+    this.showModeText = this.longBar
+  },
   methods: {
     isActievPage(page) {
       return this.$route.path === page
+    },
+    updatePageList() {
+      // Обновляем названия страниц при смене языка
+      this.pageList = [
+        { page: '/home', pageName: this.$t('navbar.home'), icon: 'home' },
+        { page: '/quiz', pageName: this.$t('navbar.quiz'), icon: 'message-alt-detail' },
+        { page: '/history', pageName: this.$t('navbar.history'), icon: 'food-menu' },
+        { page: '/notification', pageName: this.$t('navbar.notification'), icon: 'bell' },
+        { page: '/rating', pageName: this.$t('navbar.rating'), icon: 'bar-chart-square' }
+      ]
     }
   },
   watch: {
@@ -51,6 +69,9 @@ export default {
       } else {
         this.showModeText = false
       }
+    },
+    langRU(newVal) {
+      this.updatePageList()
     }
   }
 }
@@ -95,7 +116,7 @@ export default {
           </div>
           <!-- Показ текста после задержки в 1 секунду -->
           <span v-if="showModeText" class="mode-text text">{{
-            ModeisActive ? 'Темный режим' : 'Светлый режим'
+            ModeisActive ? $t('navbar.DarkTheme') : $t('navbar.lightTheme')
           }}</span>
 
           <div @click="toggleClass" class="toggle-switch">
@@ -105,7 +126,7 @@ export default {
         <li class="">
           <a href="/login">
             <i class="bx bx-log-out icon"></i>
-            <span class="text nav-text">Выход</span>
+            <span class="text nav-text">{{ $t('navbar.exit') }}</span>
           </a>
         </li>
       </div>

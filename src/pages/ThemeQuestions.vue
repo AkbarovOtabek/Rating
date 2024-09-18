@@ -40,13 +40,13 @@ export default {
 </script>
 <template>
   <div class="theme-questions" :class="{ darktheme: !ModeisActive }">
-    <h2>Вопросы по теме "{{ theme.name }}"</h2>
+    <h2>{{ $t('ThemeQuestions.QuestionsByTheme', { name: theme.name }) }}</h2>
     <div class="table">
       <div class="table-header">
-        <h3>Номер вопроса</h3>
-        <h3>Вопрос</h3>
-        <h3>макс. бал</h3>
-        <h3>заработанный бал</h3>
+        <h3>{{ $t('ThemeQuestions.NumberOfQueston') }}</h3>
+        <h3>{{ $t('ThemeQuestions.Question') }}</h3>
+        <h3>{{ $t('ThemeQuestions.MaxElo') }}</h3>
+        <h3>{{ $t('ThemeQuestions.EarnedElo') }}</h3>
       </div>
 
       <div v-for="(question, index) in theme.questions" :key="index" class="question-item">
@@ -65,17 +65,21 @@ export default {
         <div class="table-body-middle">
           <div class="table-body-text">
             <p :class="{ BGRedAns: !question.checkbox }">
-              Ответ: {{ question.checkbox || 'Нет ответа' }}
+              {{ $t('ThemeQuestions.Answer', { answered: question.checkbox || 'Нет ответа' }) }}
             </p>
-            <p class="comments">Комментарий:</p>
+            <p class="comments">{{ $t('ThemeQuestions.Comments') }}</p>
             <p :class="{ BGRedCom: !question.clientAnswer }">
-              {{ question.clientAnswer || 'Нет комментариев' }}
+              {{
+                $t('ThemeQuestions.AnswerComments', {
+                  comments: question.clientAnswer || 'Нет комментариев'
+                })
+              }}
             </p>
           </div>
           <div class="table-body-download">
             <span>
               <a class="download" :href="question.attachedFile" download
-                >Скачать загруженый файл <span><i class="bx bxs-download"></i></span
+                >{{ $t('ThemeQuestions.DownloadFile') }} <span><i class="bx bxs-download"></i></span
               ></a>
             </span>
             <!-- <span>Файл не прикреплен</span> -->
@@ -123,7 +127,7 @@ export default {
 }
 .table-header h3:nth-child(1),
 .table-body h4:nth-child(1) {
-  width: 134px;
+  width: 195px;
 }
 .table-header h3:nth-child(2),
 .table-body h4:nth-child(2) {

@@ -107,7 +107,7 @@ export default {
 </script>
 <template>
   <div class="notification">
-    <h2 class="notification-header">Уведомление</h2>
+    <h2 class="notification-header">{{ $t('Notification') }}</h2>
     <div class="notification-list">
       <NotificationCards
         v-for="element in notificationsData"

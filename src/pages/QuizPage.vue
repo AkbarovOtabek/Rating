@@ -34,7 +34,7 @@ export default {
 <template>
   <div class="quiz" :class="{ darktheme: !ModeisActive }">
     <div class="cards">
-      <h2>Вопросы для проверки безопасности {{ themes.year }} за {{ themes.quant }} квартал</h2>
+      <h2>{{ $t('Quiz.Title', { year: themes.year, quant: themes.quant }) }}</h2>
       <div class="quiz-card-wrapper">
         <a
           class="card"

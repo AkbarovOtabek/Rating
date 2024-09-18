@@ -8,6 +8,14 @@ export default {
     showNavBar: {
       type: Boolean,
       required: true
+    },
+    changeLanguage: {
+      type: Function,
+      required: true
+    },
+    langRU: {
+      type: Boolean,
+      required: true
     }
   }
 }
@@ -16,11 +24,15 @@ export default {
 <template>
   <div class="search-and-profile" v-if="showNavBar" :class="{ darktheme: !ModeisActive }">
     <div class="header">
-      <h2>Система мониторинга информационной и кибербезопасности</h2>
+      <h2>{{ $t('searchAndprofile.headTitle') }}</h2>
       <p>Tel: <span>(71)212-73-82</span></p>
       <ul class="languages">
-        <li class="active-language">RU</li>
-        <li>UZ</li>
+        <li :class="{ 'active-language': langRU }">
+          <button @click="langRU ? null : changeLanguage('ru')">RU</button>
+        </li>
+        <li :class="{ 'active-language': !langRU }">
+          <button @click="langRU ? changeLanguage('en') : null">EN</button>
+        </li>
       </ul>
     </div>
     <a href="/home" class="profile-header">
@@ -62,10 +74,23 @@ export default {
   justify-content: space-between;
   background: var(--sidebar-color);
 }
+
+.languages li button {
+  width: 100%;
+
+  border-radius: 4px;
+  height: 100%;
+  border: 1px solid transparent;
+  box-shadow: 0px 0px 5px rgba(124, 141, 181, 0.22);
+  background-color: transparent;
+  border: 1px solid var(--sidebar-color);
+  font-size: 20px;
+  cursor: pointer;
+}
 .profile-header img {
   width: 50px;
   height: 50px;
-  border-radius: 50%;
+  border-radius: 4px;
   border: 1px solid transparent;
 }
 .languages {
@@ -76,23 +101,25 @@ export default {
 }
 .languages li {
   box-shadow: 0px 0px 5px rgba(124, 141, 181, 0.22);
-  cursor: pointer;
-  font-size: 20px;
   display: flex;
+
   align-items: center;
   justify-content: center;
   width: 54px;
   height: 50px;
-  border-radius: 4px;
 }
-.languages .active-language {
+.languages .active-language button {
   color: var(--sidebar-color);
   background-color: var(--primary-color);
+  border: 1px solid transparent;
 }
 
 .search-and-profile.darktheme .header,
 .search-and-profile.darktheme .profile-header {
   color: var(--primary-color-light);
   background: var(--primary-color-light-dark);
+}
+.search-and-profile.darktheme .languages li button {
+  color: var(--sidebar-color);
 }
 </style>

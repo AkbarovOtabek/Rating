@@ -300,25 +300,25 @@ export default {
 <template>
   <div class="rating" :class="{ darktheme: !ModeisActive }">
     <div class="filter-and-header-rating">
-      <h3>Таблица ретинга за {{ selectedYear }}</h3>
+      <h3>{{ $t('Rating.Title', { year: selectedYear }) }}</h3>
       <form action="" class="filter-rating">
         <select v-model="selectedYear">
           <option v-for="year in historyRating.map((item) => item.date)" :key="year" :value="year">
-            {{ year }} год
+            {{ $t('Rating.SelectYear', { year: year }) }}
           </option>
         </select>
         <select v-model="selectedQuarter">
           <option v-for="quarter in availableQuarters" :key="quarter" :value="quarter">
-            {{ quarter }} - квартал
+            {{ $t('Rating.SelectQuarts', { quant: quarter }) }}
           </option>
         </select>
       </form>
     </div>
     <div class="rating-table">
       <div class="table-header">
-        <h3>Место в рейтинге</h3>
-        <h3>Название банка</h3>
-        <h3>Накопленные очки</h3>
+        <h3>{{ $t('Rating.Number') }}</h3>
+        <h3>{{ $t('Rating.NameOfBanks') }}</h3>
+        <h3>{{ $t('Rating.EarnedAlo') }}</h3>
       </div>
 
       <div class="table-body" v-for="(bank, number) in filteredRatingBanks" :key="bank.id">
@@ -390,6 +390,7 @@ export default {
   height: 74px;
   margin-bottom: 10px;
   width: inherit;
+  padding: 0px 0px 0px 35px;
   border: 1px solid #e6edff;
   position: relative;
   border-radius: 12px;
@@ -410,13 +411,14 @@ export default {
   border: 1px solid #e6edff;
   position: relative;
   border-radius: 12px;
+  padding: 0px 0px 0px 40px;
   background: var(--sidebar-color);
   box-shadow: 0px 0px 10px rgba(124, 141, 181, 0.22);
 }
 .rating-table .table-body > p,
 .rating-table .table-header > h3 {
   width: 27%;
-  text-align: center;
+  text-align: left;
 }
 .rating.darktheme .filter-and-header-rating h3,
 .rating.darktheme .filter-rating,

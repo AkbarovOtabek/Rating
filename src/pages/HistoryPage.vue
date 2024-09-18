@@ -19,7 +19,7 @@ export default {
   <div class="history" :class="{ darktheme: !ModeisActive }">
     <div class="history-cards">
       <div class="history-wrapper" v-for="element in history" :key="element.year">
-        <h2>{{ element.year }} год</h2>
+        <h2>{{ $t('HistoryPage.Year', { year: element.year }) }}</h2>
         <div class="history-quarts">
           <router-link
             v-for="quant in element.quants"
@@ -27,7 +27,7 @@ export default {
             :to="{ name: 'lastQuantsHistory', params: { id: quant.id } }"
             class="history-card"
           >
-            {{ quant.quant }} - четверть
+            {{ $t('HistoryPage.Quant', { quant: quant.quant }) }}
           </router-link>
         </div>
       </div>

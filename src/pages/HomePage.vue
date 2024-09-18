@@ -72,28 +72,28 @@ export default {
           <h3>{{ this.quantityQuestions }}</h3>
           <span><img src="../assets/icons/totalIconQuestions.png" alt="" /></span>
         </div>
-        <p>Количество Вопросов</p>
+        <p>{{ $t('HomePage.QuantityOfQuestions') }}</p>
       </div>
       <div class="profile-statistics">
         <div>
           <h3>{{ this.answered }}</h3>
           <span><img src="../assets/icons/totalIconAnswered.png" alt="" /></span>
         </div>
-        <p>Количество ответов</p>
+        <p>{{ $t('HomePage.QuantityOfAnswers') }}</p>
       </div>
       <div class="profile-statistics">
         <div>
           <h3>{{ remainQuestions }}</h3>
           <span><img src="../assets/icons/totalIconRemain.png" alt="" /></span>
         </div>
-        <p>Количество оставшихся</p>
+        <p>{{ $t('HomePage.QuantityOfRemainQuestions') }}</p>
       </div>
       <div class="profile-statistics">
         <div>
           <h3>{{ this.rating }}</h3>
           <span><img src="../assets/icons/totalIconRating.png" alt="" /></span>
         </div>
-        <p>Рейтинг по безопасности</p>
+        <p>{{ $t('HomePage.RatingOfSecurity') }}</p>
       </div>
       <div class="border-line1"></div>
       <div class="border-line2"></div>
@@ -101,7 +101,7 @@ export default {
     </div>
     <div class="statistics-graphic">
       <div class="statistics-graphic-left">
-        <h3>История изменения положения</h3>
+        <h3>{{ $t('HomePage.HistoryOfChanges') }}</h3>
         <ChartsHomePage :ModeisActive="ModeisActive" />
       </div>
       <div class="statistics-graphic-right">
@@ -113,14 +113,14 @@ export default {
         >
           <span class="progress-value">{{ progressPercentage }}%</span>
         </div>
-        <span class="progress-text">Статус выполненых задач</span>
+        <span class="progress-text">{{ $t('HomePage.StatusOfDoneChallenges') }}</span>
       </div>
     </div>
     <div class="history-to-change">
       <div class="last-passed-questions">
         <div class="employees">
           <div class="employees-body">
-            <h3 class="employees-header">Сотрудники организации</h3>
+            <h3 class="employees-header">{{ $t('HomePage.Staff') }}</h3>
             <table class="employees-table">
               <tr class="employees-table-header">
                 <th>Ф.И.О</th>

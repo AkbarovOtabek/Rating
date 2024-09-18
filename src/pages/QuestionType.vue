@@ -61,7 +61,9 @@ export default {
       const label = input.nextElementSibling.querySelector('.field__file-fake')
       const countFiles = input.files.length
 
-      label.innerText = countFiles ? `Выбрано файлов: ${countFiles}` : 'Файлы не выбраны'
+      label.innerText = countFiles
+        ? this.$t('QuestionType.ChooseTheFile2', { number: countFiles })
+        : this.$t('QuestionType.ChooseTheFile1')
     }
   }
 }
@@ -78,7 +80,7 @@ export default {
       <div class="question-header" @click="toggleAccordion(index)">
         <h3>{{ index + 1 }}. {{ question.text }}</h3>
         <span class="question-header-span-wrapper">
-          <span>Баллы:</span>
+          <span>{{ $t('QuestionType.Elo') }} </span>
           <span class="question-header-point">{{ question.points }}</span>
         </span>
       </div>
@@ -95,7 +97,7 @@ export default {
                     @change="selectOption(index, 'Да')"
                     :checked="question.selectedOption === 'Да'"
                   />
-                  <label :for="'checkbox-yes-' + index">Да</label>
+                  <label :for="'checkbox-yes-' + index">{{ $t('QuestionType.answer1') }}</label>
                 </div>
                 <div v-if="question.answerYasNo" class="checkbox-style">
                   <input
@@ -105,7 +107,7 @@ export default {
                     @change="selectOption(index, 'Нет')"
                     :checked="question.selectedOption === 'Нет'"
                   />
-                  <label :for="'checkbox-no-' + index">Нет</label>
+                  <label :for="'checkbox-no-' + index">{{ $t('QuestionType.answer2') }}</label>
                 </div>
               </div>
               <input
@@ -122,9 +124,13 @@ export default {
               />
               <label class="field__file-wrapper" :for="'input__file-' + index">
                 <div class="field__file-fake">
-                  {{ questions[index].fileLabel || 'Файлы не выбраны' }}
+                  {{
+                    question.attachedFiles.length
+                      ? $t('QuestionType.ChooseTheFile2', { number: question.attachedFiles.length })
+                      : $t('QuestionType.ChooseTheFile1')
+                  }}
                 </div>
-                <div class="field__file-button">Выбрать</div>
+                <div class="field__file-button">{{ $t('QuestionType.Choose') }}</div>
               </label>
             </div>
 
@@ -134,7 +140,7 @@ export default {
               v-model="question.comments"
             ></textarea>
             <div class="textarea-wrapper">
-              <button type="submit">Отправить</button>
+              <button type="submit">{{ $t('QuestionType.Send') }}</button>
             </div>
           </form>
         </div>
