@@ -1,5 +1,5 @@
 <script>
-import { latestYearAndQuant } from '../questions'
+import { latestYearAndQuant } from '../API.js'
 export default {
   props: {
     ModeisActive: {
@@ -9,24 +9,15 @@ export default {
   },
   data() {
     return {
-      themes: latestYearAndQuant,
-      timeForDeadline: '',
-      procentToComplate: null
+      themes: latestYearAndQuant
     }
   },
-  mounted() {
-    const currentDate = new Date()
-
-    const datelineStr = this.themes.themes[0].dateline
-    const formattedDateStr = datelineStr.replace(/:/g, '-')
-    const datelineDate = new Date(formattedDateStr)
-
-    const diffInMs = datelineDate - currentDate
-    const diffInDays = Math.floor(diffInMs / (1000 * 60 * 60 * 24))
-    const diffInHours = Math.floor((diffInMs % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60))
-    const diffInMinutes = Math.floor((diffInMs % (1000 * 60 * 60)) / (1000 * 60))
-
-    this.timeForDeadline = `${diffInDays}д : ${diffInHours}ч : ${diffInMinutes}м`
+  methods: {
+    formatDeadline(date) {
+      const deadline = new Date(date)
+      const options = { year: 'numeric', month: 'long', day: 'numeric' }
+      return deadline.toLocaleDateString(undefined, options)
+    }
   }
 }
 </script>
@@ -36,25 +27,25 @@ export default {
     <div class="cards">
       <h2>{{ $t('Quiz.Title', { year: themes.year, quant: themes.quant }) }}</h2>
       <div class="quiz-card-wrapper">
-        <a
+        <router-link
           class="card"
+          :to="{ name: 'questionType', params: { id: questionTheme.id } }"
           :ModeisActive="ModeisActive"
           v-for="questionTheme in themes.themes"
           :key="questionTheme.id"
-          :href="`/quiz/questionType/${questionTheme.id}`"
         >
           <div class="card-time">
-            <p>{{ timeForDeadline }}</p>
+            <p>{{ formatDeadline(questionTheme.data) }}</p>
           </div>
           <div class="procent-done-works">
-            <p>выполнен на 99%</p>
+            <p>оценка до {{ questionTheme.mark }}</p>
           </div>
-          <img class="card-img" :src="questionTheme.image" alt="" />
+          <img class="card-img" :src="questionTheme.image" alt="Card Image" />
           <div class="card-text">
-            <h4>{{ questionTheme.name }}</h4>
+            <h4>{{ questionTheme.theme }}</h4>
             <p>{{ questionTheme.description || 'Описание отсутствует' }}</p>
           </div>
-        </a>
+        </router-link>
       </div>
     </div>
   </div>
@@ -76,7 +67,7 @@ export default {
 .quiz .cards {
   display: flex;
   flex-direction: column;
-  padding: 34px;
+  padding: 23px;
 }
 
 .quiz-card-wrapper {

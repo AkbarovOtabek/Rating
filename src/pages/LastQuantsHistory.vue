@@ -80,7 +80,7 @@ export default {
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding: 34px;
+  padding: 23px;
 }
 
 .quiz-card-wrapper {

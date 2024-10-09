@@ -23,7 +23,11 @@ const routes = [
     component: pages.ThemeQuestions,
     name: 'themeQuestions'
   },
-  { path: '/quiz/questionType/:id', component: pages.QuestionType, name: 'questionType' }
+  {
+    path: '/quiz/questionType/:id',
+    component: pages.QuestionType,
+    name: 'questionType'
+  }
 ]
 
 const router = createRouter({

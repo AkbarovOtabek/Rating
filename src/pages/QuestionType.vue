@@ -1,5 +1,5 @@
 <script>
-import { latestYearAndQuant } from '../questions'
+import { latestYearAndQuant } from '../API.js'
 
 export default {
   props: {
@@ -10,60 +10,35 @@ export default {
   },
   data() {
     return {
-      questions: []
+      questions: [],
+      responses: {},
+      innerResponses: {} // Добавлено для подвопросов
     }
   },
   mounted() {
-    const themeId = this.$route.params.id
-    const theme = this.findThemeById(themeId)
+    try {
+      const themeId = parseInt(this.$route.params.id)
+      const data = latestYearAndQuant
+      const selectedTheme = data.themes.find((theme) => theme.id === themeId)
 
-    if (theme) {
-      this.questions = theme.questions.map((question) => ({
-        text: question.question,
-        points: question.alo,
-        isOpen: false,
-        selectedOption: '',
-        attachedFiles: [],
-        comments: '',
-        isAnswered: false,
-        answerYasNo: question.answerYasNo
-      }))
+      if (selectedTheme && selectedTheme.question) {
+        this.questions = selectedTheme.question
+      } else {
+        console.error('Темы или вопросы не найдены')
+      }
+    } catch (error) {
+      console.error('Ошибка при получении данных', error)
     }
   },
-
   methods: {
-    findThemeById(id) {
-      return latestYearAndQuant.themes.find((theme) => theme.id === Number(id)) || null
-    },
-    toggleAccordion(index) {
-      this.questions[index].isOpen = !this.questions[index].isOpen
-    },
-    selectOption(index, option) {
-      this.questions[index].selectedOption = option
-    },
-    submitForm(index, event) {
-      event.preventDefault()
-
-      const selectedOption = this.questions[index].selectedOption
-      const attachedFiles = this.$refs[`fileInput${index}`][0].files
-      const comments = this.questions[index].comments
-
-      console.log('Вопрос:', this.questions[index].text)
-      console.log('Выбранный ответ:', selectedOption)
-      console.log('Прикрепленные файлы:', attachedFiles)
-      console.log('Комментарии:', comments)
-
-      this.questions[index].isAnswered = true
-      this.questions[index].isOpen = false
-    },
-    updateFileLabel(index) {
-      const input = this.$refs[`fileInput${index}`][0]
-      const label = input.nextElementSibling.querySelector('.field__file-fake')
-      const countFiles = input.files.length
-
-      label.innerText = countFiles
-        ? this.$t('QuestionType.ChooseTheFile2', { number: countFiles })
-        : this.$t('QuestionType.ChooseTheFile1')
+    showInnerQuestion(question) {
+      const response = this.responses[question.id]
+      if (response === question.option[0]) {
+        return question.innerQuestion[0]
+      } else if (response === question.option[1]) {
+        return question.innerQuestion[1]
+      }
+      return null
     }
   }
 }
@@ -71,80 +46,65 @@ export default {
 
 <template>
   <div class="questionType" :class="{ darktheme: !ModeisActive }">
-    <div
-      v-for="(question, index) in questions"
-      :key="index"
-      class="question-item"
-      :class="{ answered: question.isAnswered }"
-    >
-      <div class="question-header" @click="toggleAccordion(index)">
-        <h3>{{ index + 1 }}. {{ question.text }}</h3>
-        <span class="question-header-span-wrapper">
-          <span>{{ $t('QuestionType.Elo') }} </span>
-          <span class="question-header-point">{{ question.points }}</span>
-        </span>
+    <div class="question-item" v-for="question in questions" :key="question.id">
+      <div class="top-question">
+        <span class="head-number">{{ question.id }}</span>
+        <span class="head-question">{{ question.question }}</span>
       </div>
-      <transition name="accordion">
-        <div v-show="question.isOpen" class="accordion-content">
-          <form @submit="submitForm(index, $event)">
-            <div class="checkbox-wrapper">
-              <div>
-                <div v-if="question.answerYasNo" class="checkbox-style">
-                  <input
-                    type="radio"
-                    :name="'question-' + index"
-                    :id="'checkbox-yes-' + index"
-                    @change="selectOption(index, 'Да')"
-                    :checked="question.selectedOption === 'Да'"
-                  />
-                  <label :for="'checkbox-yes-' + index">{{ $t('QuestionType.answer1') }}</label>
-                </div>
-                <div v-if="question.answerYasNo" class="checkbox-style">
-                  <input
-                    type="radio"
-                    :name="'question-' + index"
-                    :id="'checkbox-no-' + index"
-                    @change="selectOption(index, 'Нет')"
-                    :checked="question.selectedOption === 'Нет'"
-                  />
-                  <label :for="'checkbox-no-' + index">{{ $t('QuestionType.answer2') }}</label>
-                </div>
-              </div>
-              <input
-                name="file"
-                type="file"
-                :id="'input__file-' + index"
-                class="field field__file"
-                multiple
-                @change="updateFileLabel(index)"
-                accept="image/*,application/pdf,application/msword,
-              application/vnd.openxmlformats-officedocument.wordprocessingml.document,
-              application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
-                :ref="'fileInput' + index"
-              />
-              <label class="field__file-wrapper" :for="'input__file-' + index">
-                <div class="field__file-fake">
-                  {{
-                    question.attachedFiles.length
-                      ? $t('QuestionType.ChooseTheFile2', { number: question.attachedFiles.length })
-                      : $t('QuestionType.ChooseTheFile1')
-                  }}
-                </div>
-                <div class="field__file-button">{{ $t('QuestionType.Choose') }}</div>
-              </label>
-            </div>
-
-            <textarea
-              name="comments"
-              placeholder="Введите комментарии"
-              v-model="question.comments"
-            ></textarea>
-            <div class="textarea-wrapper">
-              <button type="submit">{{ $t('QuestionType.Send') }}</button>
-            </div>
-          </form>
+      <div class="comments">
+        <em>{{ question.comments }}</em>
+        <textarea v-if="question.textarea" cols="30" rows="10"></textarea>
+        <div v-if="question.HasAttaching">
+          <input type="file" multiple="multiple" />
         </div>
-      </transition>
+      </div>
+
+      <!-- Основные варианты ответа -->
+      <div v-for="(option, idx) in question.option" :key="idx">
+        <label>
+          <input
+            type="radio"
+            :value="option"
+            v-model="responses[question.id]"
+            :name="`option-${question.id}`"
+          />
+          {{ option }}
+        </label>
+      </div>
+
+      <!-- Показ подвопроса в зависимости от выбранного ответа -->
+      <div v-if="showInnerQuestion(question)">
+        <div class="innerQuestion" :key="showInnerQuestion(question).id">
+          <span
+            >{{ question.id }}.{{ showInnerQuestion(question).id }}
+            {{ showInnerQuestion(question).question }}</span
+          >
+          <textarea v-if="showInnerQuestion(question).textarea" cols="30" rows="10"></textarea>
+
+          <!-- Варианты ответа на подвопрос -->
+          <div v-for="(option, idx) in showInnerQuestion(question).option" :key="idx">
+            <label>
+              <input
+                type="radio"
+                :value="option"
+                v-model="innerResponses[showInnerQuestion(question).id]"
+                :name="`inner-option-${showInnerQuestion(question).id}`"
+              />
+              {{ option }}
+            </label>
+          </div>
+
+          <div v-if="showInnerQuestion(question).HasAttaching">
+            <input type="file" multiple="multiple" />
+          </div>
+          <div
+            v-for="subInnerQuestion in showInnerQuestion(question).innerQuestion"
+            :key="subInnerQuestion.id"
+          >
+            <span>{{ subInnerQuestion.question }}</span>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </template>

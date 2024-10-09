@@ -87,6 +87,7 @@ export default {
   flex-grow: 1;
   transition: var(--tran-03);
 }
+
 .none.container.width {
   width: calc(100% - 225px);
   margin-left: 305px;
@@ -95,5 +96,17 @@ export default {
   width: 100%;
   height: 100%;
   background-color: var(--body-color-dark) !important;
+}
+@media (min-width: 1440px) {
+  .none.container {
+    width: 1440px;
+    padding-left: calc((100% - 1440px) / 2);
+    padding-right: calc((100% - 1440px) / 2);
+    margin: 0 auto;
+  }
+  .none.container.width {
+    width: calc(100% - 225px);
+    margin-left: 0;
+  }
 }
 </style>
